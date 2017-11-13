@@ -8,17 +8,17 @@
     -->
     <changeSet id="20171111123132-2" author="jhipster">
         
-        <addForeignKeyConstraint baseColumnNames="bid_id"
+        <addForeignKeyConstraint baseColumnNames="mid_id"
                                  baseTableName="candle_stick"
-                                 constraintName="fk_candle_stick_bid_id"
+                                 constraintName="fk_candle_stick_mid_id"
                                  referencedColumnNames="id"
                                  referencedTableName="candle_stick_data"/>
 
-        <addForeignKeyConstraint baseColumnNames="ask_id"
+        <addForeignKeyConstraint baseColumnNames="instrument_id"
                                  baseTableName="candle_stick"
-                                 constraintName="fk_candle_stick_ask_id"
+                                 constraintName="fk_candle_stick_instrument_id"
                                  referencedColumnNames="id"
-                                 referencedTableName="candle_stick_data"/>
+                                 referencedTableName="instrument"/>
 
     </changeSet>
 </databaseChangeLog>

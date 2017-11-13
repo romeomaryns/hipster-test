@@ -16,7 +16,7 @@ import java.time.Instant;
 
 @Service
 @Transactional
-public class InstrumentService {
+public class InstrumentService implements IInstrumentService {
 
     private final Logger log = LoggerFactory.getLogger(InstrumentService.class);
 

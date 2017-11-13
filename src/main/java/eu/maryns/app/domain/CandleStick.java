@@ -8,6 +8,8 @@ import java.io.Serializable;
 import java.time.Instant;
 import java.util.Objects;
 
+import eu.maryns.app.domain.enumeration.CandleStickGranularity;
+
 /**
  * A CandleStick.
  */
@@ -32,13 +34,16 @@ public class CandleStick implements Serializable {
     @Column(name = "jhi_complete")
     private Boolean complete;
 
-    @OneToOne
-    @JoinColumn(unique = true)
-    private CandleStickData bid;
+    @Enumerated(EnumType.STRING)
+    @Column(name = "granularity")
+    private CandleStickGranularity granularity;
 
     @OneToOne
     @JoinColumn(unique = true)
-    private CandleStickData ask;
+    private CandleStickData mid;
+
+    @ManyToOne
+    private Instrument instrument;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
@@ -88,30 +93,43 @@ public class CandleStick implements Serializable {
         this.complete = complete;
     }
 
-    public CandleStickData getBid() {
-        return bid;
+    public CandleStickGranularity getGranularity() {
+        return granularity;
     }
 
-    public CandleStick bid(CandleStickData candleStickData) {
-        this.bid = candleStickData;
+    public CandleStick granularity(CandleStickGranularity granularity) {
+        this.granularity = granularity;
         return this;
     }
 
-    public void setBid(CandleStickData candleStickData) {
-        this.bid = candleStickData;
+    public void setGranularity(CandleStickGranularity granularity) {
+        this.granularity = granularity;
     }
 
-    public CandleStickData getAsk() {
-        return ask;
+    public CandleStickData getMid() {
+        return mid;
     }
 
-    public CandleStick ask(CandleStickData candleStickData) {
-        this.ask = candleStickData;
+    public CandleStick mid(CandleStickData candleStickData) {
+        this.mid = candleStickData;
         return this;
     }
 
-    public void setAsk(CandleStickData candleStickData) {
-        this.ask = candleStickData;
+    public void setMid(CandleStickData candleStickData) {
+        this.mid = candleStickData;
+    }
+
+    public Instrument getInstrument() {
+        return instrument;
+    }
+
+    public CandleStick instrument(Instrument instrument) {
+        this.instrument = instrument;
+        return this;
+    }
+
+    public void setInstrument(Instrument instrument) {
+        this.instrument = instrument;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 
@@ -142,6 +160,7 @@ public class CandleStick implements Serializable {
             ", time='" + getTime() + "'" +
             ", volume='" + getVolume() + "'" +
             ", complete='" + isComplete() + "'" +
+            ", granularity='" + getGranularity() + "'" +
             "}";
     }
 }

@@ -10,6 +10,7 @@ import { CandleStick } from './candle-stick.model';
 import { CandleStickPopupService } from './candle-stick-popup.service';
 import { CandleStickService } from './candle-stick.service';
 import { CandleStickData, CandleStickDataService } from '../candle-stick-data';
+import { Instrument, InstrumentService } from '../instrument';
 import { ResponseWrapper } from '../../shared';
 
 @Component({
@@ -21,15 +22,16 @@ export class CandleStickDialogComponent implements OnInit {
     candleStick: CandleStick;
     isSaving: boolean;
 
-    bids: CandleStickData[];
+    mids: CandleStickData[];
 
-    asks: CandleStickData[];
+    instruments: Instrument[];
 
     constructor(
         public activeModal: NgbActiveModal,
         private jhiAlertService: JhiAlertService,
         private candleStickService: CandleStickService,
         private candleStickDataService: CandleStickDataService,
+        private instrumentService: InstrumentService,
         private eventManager: JhiEventManager
     ) {
     }
@@ -39,29 +41,18 @@ export class CandleStickDialogComponent implements OnInit {
         this.candleStickDataService
             .query({filter: 'candlestick-is-null'})
             .subscribe((res: ResponseWrapper) => {
-                if (!this.candleStick.bid || !this.candleStick.bid.id) {
-                    this.bids = res.json;
+                if (!this.candleStick.mid || !this.candleStick.mid.id) {
+                    this.mids = res.json;
                 } else {
                     this.candleStickDataService
-                        .find(this.candleStick.bid.id)
+                        .find(this.candleStick.mid.id)
                         .subscribe((subRes: CandleStickData) => {
-                            this.bids = [subRes].concat(res.json);
+                            this.mids = [subRes].concat(res.json);
                         }, (subRes: ResponseWrapper) => this.onError(subRes.json));
                 }
             }, (res: ResponseWrapper) => this.onError(res.json));
-        this.candleStickDataService
-            .query({filter: 'candlestick-is-null'})
-            .subscribe((res: ResponseWrapper) => {
-                if (!this.candleStick.ask || !this.candleStick.ask.id) {
-                    this.asks = res.json;
-                } else {
-                    this.candleStickDataService
-                        .find(this.candleStick.ask.id)
-                        .subscribe((subRes: CandleStickData) => {
-                            this.asks = [subRes].concat(res.json);
-                        }, (subRes: ResponseWrapper) => this.onError(subRes.json));
-                }
-            }, (res: ResponseWrapper) => this.onError(res.json));
+        this.instrumentService.query()
+            .subscribe((res: ResponseWrapper) => { this.instruments = res.json; }, (res: ResponseWrapper) => this.onError(res.json));
     }
 
     clear() {
@@ -99,6 +90,10 @@ export class CandleStickDialogComponent implements OnInit {
     }
 
     trackCandleStickDataById(index: number, item: CandleStickData) {
+        return item.id;
+    }
+
+    trackInstrumentById(index: number, item: Instrument) {
         return item.id;
     }
 }

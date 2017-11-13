@@ -4,6 +4,8 @@ import { JhiEventManager } from 'ng-jhipster';
 
 import { Account, LoginModalService, Principal } from '../shared';
 
+import { HttpModule,Http } from '@angular/http';
+
 @Component({
     selector: 'jhi-home',
     templateUrl: './home.component.html',
@@ -13,14 +15,29 @@ import { Account, LoginModalService, Principal } from '../shared';
 
 })
 export class HomeComponent implements OnInit {
+
+    options: Object;
     account: Account;
     modalRef: NgbModalRef;
 
     constructor(
         private principal: Principal,
         private loginModalService: LoginModalService,
-        private eventManager: JhiEventManager
+        private eventManager: JhiEventManager,
+        private http: Http
     ) {
+         http.get('https://cdn.rawgit.com/gevgeny/angular2-highcharts/99c6324d/examples/aapl.json').subscribe(res => {
+            this.options = {
+                title : { text : 'AAPL Stock Price' },
+                series : [{
+                    name : 'AAPL',
+                    data : res.json(),
+                    tooltip: {
+                        valueDecimals: 2
+                    }
+                }]
+            };
+        });
     }
 
     ngOnInit() {

@@ -32,11 +32,17 @@
             <column name="jhi_complete" type="boolean">
                 <constraints nullable="true" />
             </column>
-            <column name="bid_id" type="bigint">
-                <constraints unique="true" nullable="true" />
-            </column>            <column name="ask_id" type="bigint">
+
+            <column name="granularity" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="mid_id" type="bigint">
                 <constraints unique="true" nullable="true" />
             </column>
+            <column name="instrument_id" type="bigint">
+                <constraints nullable="true" />
+            </column>
+
             <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here, do not remove-->
         </createTable>
         <dropDefaultValue tableName="candle_stick" columnName="jhi_time" columnDataType="datetime"/>

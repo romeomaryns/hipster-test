@@ -99,6 +99,7 @@ entity CandleStick{
 	time Instant
     volume Integer
     complete Boolean
+    granularity CandleStickGranularity
 }
 
 entity CandleStickData{
@@ -111,8 +112,7 @@ entity CandleStickData{
 relationship OneToOne {
 	Position{longValue} to PositionSide,
     Position{shortValue} to PositionSide,
-    CandleStick{bid} to CandleStickData,
-    CandleStick{ask} to CandleStickData
+    CandleStick{mid} to CandleStickData
 }
 // defining multiple OneToMany relationships with comments
 relationship OneToMany {
@@ -122,6 +122,7 @@ relationship OneToMany {
 }
 relationship ManyToOne {
     OandaAccount{user(login)} to User
+    CandleStick{instrument} to Instrument
 }
 
 

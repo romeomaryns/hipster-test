@@ -13,4 +13,5 @@ import org.springframework.data.jpa.repository.*;
 @Repository
 public interface InstrumentRepository extends JpaRepository<Instrument, Long> {
 
+    Instrument findByNameIgnoreCase(String s);
 }

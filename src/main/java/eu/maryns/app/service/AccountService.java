@@ -15,7 +15,7 @@ import java.util.ArrayList;
 
 @Service
 @Transactional
-public class AccountService {
+public class AccountService implements IAccountService{
 
     private final Logger log = LoggerFactory.getLogger(AccountService.class);
 
