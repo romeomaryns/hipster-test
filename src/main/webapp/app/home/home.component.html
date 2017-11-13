@@ -20,7 +20,19 @@
                 <span>Heeft u nog geen account?</span>
                 <a class="alert-link" routerLink="register">Registreer een nieuwe account</a>
             </div>
-            
+            <p>
+                <button type="button" class="btn btn-outline-primary" (click)="isCollapsed = !isCollapsed"
+                        [attr.aria-expanded]="!isCollapsed" aria-controls="collapseExample">
+                  Settings
+                </button>
+              </p>
+              <div id="collapseExample" [ngbCollapse]="isCollapsed">
+                <div class="card">
+                  <div class="card-body">
+                    test
+                  </div>
+                </div>
+              </div>
             <chart type="StockChart" [options]="options"></chart>
         </div>
     </div>

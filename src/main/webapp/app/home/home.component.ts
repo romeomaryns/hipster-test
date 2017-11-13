@@ -19,6 +19,7 @@ export class HomeComponent implements OnInit {
     options: Object;
     account: Account;
     modalRef: NgbModalRef;
+    public isCollapsed = false;
 
     constructor(
         private principal: Principal,
