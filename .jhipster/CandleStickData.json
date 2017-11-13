@@ -1,0 +1,28 @@
+{
+    "fluentMethods": true,
+    "relationships": [],
+    "fields": [
+        {
+            "fieldName": "o",
+            "fieldType": "Double"
+        },
+        {
+            "fieldName": "h",
+            "fieldType": "Double"
+        },
+        {
+            "fieldName": "l",
+            "fieldType": "Double"
+        },
+        {
+            "fieldName": "c",
+            "fieldType": "Double"
+        }
+    ],
+    "changelogDate": "20171111123133",
+    "entityTableName": "candle_stick_data",
+    "dto": "no",
+    "pagination": "infinite-scroll",
+    "service": "no",
+    "jpaMetamodelFiltering": false
+}

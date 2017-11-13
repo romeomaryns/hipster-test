@@ -1,0 +1,120 @@
+<div>
+    <h2>
+        <span>Oanda Accounts</span>
+        <button class="btn btn-primary float-right jh-create-entity create-oanda-account" [routerLink]="['/', { outlets: { popup: ['oanda-account-new'] } }]">
+            <span class="fa fa-plus"></span>
+            <span >
+            Create new Oanda Account
+            </span>
+        </button>
+    </h2>
+    <jhi-alert></jhi-alert>
+    <div class="row">
+    </div>
+    <br/>
+    <div class="table-responsive" *ngIf="oandaAccounts">
+        <table class="table table-striped">
+            <thead>
+            <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="reset.bind(this)">
+            <th jhiSortBy="id"><span>ID</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="alias"><span>Alias</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="balance"><span>Balance</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="currency"><span>Currency</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="createdByUserID"><span>Created By User ID</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="createdTime"><span>Created Time</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="pl"><span>Pl</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="resettablePL"><span>Resettable PL</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="resettabledPLTime"><span>Resettabled PL Time</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="commission"><span>Commission</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="marginRate"><span>Margin Rate</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="marginCallEnterTime"><span>Margin Call Enter Time</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="marginCallExtensionCount"><span>Margin Call Extension Count</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="lastMarginCallExtensionTime"><span>Last Margin Call Extension Time</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="openTradeCount"><span>Open Trade Count</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="openPositionCount"><span>Open Position Count</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="pendingOrderCount"><span>Pending Order Count</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="hedgingEnabled"><span>Hedging Enabled</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="unrealizedPL"><span>Unrealized PL</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="nAV"><span>N AV</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="marginUsed"><span>Margin Used</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="marginAvailable"><span>Margin Available</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="positionValue"><span>Position Value</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="marginCloseoutUnrealizedPL"><span>Margin Closeout Unrealized PL</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="marginCloseoutNAV"><span>Margin Closeout NAV</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="marginCloseoutMarginUsed"><span>Margin Closeout Margin Used</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="marginCloseoutPercent"><span>Margin Closeout Percent</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="marginCloseoutPositionValue"><span>Margin Closeout Position Value</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="withdrawalLimit"><span>Withdrawal Limit</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="marginCallMarginUsed"><span>Margin Call Margin Used</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="marginCallPercent"><span>Margin Call Percent</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="lastTransactionID"><span>Last Transaction ID</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="user.login"><span>User</span> <span class="fa fa-sort"></span></th>
+            <th></th>
+            </tr>
+            </thead>
+            <tbody infinite-scroll (scrolled)="loadPage(page + 1)" [infiniteScrollDisabled]="page >= links['last']" [infiniteScrollDistance]="0">
+            <tr *ngFor="let oandaAccount of oandaAccounts ;trackBy: trackId">
+                <td><a [routerLink]="['../oanda-account', oandaAccount.id ]">{{oandaAccount.id}}</a></td>
+                <td>{{oandaAccount.alias}}</td>
+                <td>{{oandaAccount.balance}}</td>
+                <td>{{oandaAccount.currency}}</td>
+                <td>{{oandaAccount.createdByUserID}}</td>
+                <td>{{oandaAccount.createdTime | date:'medium'}}</td>
+                <td>{{oandaAccount.pl}}</td>
+                <td>{{oandaAccount.resettablePL}}</td>
+                <td>{{oandaAccount.resettabledPLTime | date:'medium'}}</td>
+                <td>{{oandaAccount.commission}}</td>
+                <td>{{oandaAccount.marginRate}}</td>
+                <td>{{oandaAccount.marginCallEnterTime | date:'medium'}}</td>
+                <td>{{oandaAccount.marginCallExtensionCount}}</td>
+                <td>{{oandaAccount.lastMarginCallExtensionTime | date:'medium'}}</td>
+                <td>{{oandaAccount.openTradeCount}}</td>
+                <td>{{oandaAccount.openPositionCount}}</td>
+                <td>{{oandaAccount.pendingOrderCount}}</td>
+                <td>{{oandaAccount.hedgingEnabled}}</td>
+                <td>{{oandaAccount.unrealizedPL}}</td>
+                <td>{{oandaAccount.nAV}}</td>
+                <td>{{oandaAccount.marginUsed}}</td>
+                <td>{{oandaAccount.marginAvailable}}</td>
+                <td>{{oandaAccount.positionValue}}</td>
+                <td>{{oandaAccount.marginCloseoutUnrealizedPL}}</td>
+                <td>{{oandaAccount.marginCloseoutNAV}}</td>
+                <td>{{oandaAccount.marginCloseoutMarginUsed}}</td>
+                <td>{{oandaAccount.marginCloseoutPercent}}</td>
+                <td>{{oandaAccount.marginCloseoutPositionValue}}</td>
+                <td>{{oandaAccount.withdrawalLimit}}</td>
+                <td>{{oandaAccount.marginCallMarginUsed}}</td>
+                <td>{{oandaAccount.marginCallPercent}}</td>
+                <td>{{oandaAccount.lastTransactionID}}</td>
+                <td>
+                    {{oandaAccount.user?.login}}
+                </td>
+                <td class="text-right">
+                    <div class="btn-group flex-btn-group-container">
+                        <button type="submit"
+                                [routerLink]="['../oanda-account', oandaAccount.id ]"
+                                class="btn btn-info btn-sm">
+                            <span class="fa fa-eye"></span>
+                            <span class="d-none d-md-inline">View</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/', { outlets: { popup: 'oanda-account/'+ oandaAccount.id + '/edit'} }]"
+                                replaceUrl="true"
+                                class="btn btn-primary btn-sm">
+                            <span class="fa fa-pencil"></span>
+                            <span class="d-none d-md-inline">Edit</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/', { outlets: { popup: 'oanda-account/'+ oandaAccount.id + '/delete'} }]"
+                                replaceUrl="true"
+                                class="btn btn-danger btn-sm">
+                            <span class="fa fa-remove"></span>
+                            <span class="d-none d-md-inline">Delete</span>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

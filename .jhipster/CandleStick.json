@@ -1,0 +1,41 @@
+{
+    "fluentMethods": true,
+    "relationships": [
+        {
+            "relationshipType": "one-to-one",
+            "relationshipName": "bid",
+            "otherEntityName": "candleStickData",
+            "otherEntityField": "id",
+            "ownerSide": true,
+            "otherEntityRelationshipName": "candleStick"
+        },
+        {
+            "relationshipType": "one-to-one",
+            "relationshipName": "ask",
+            "otherEntityName": "candleStickData",
+            "otherEntityField": "id",
+            "ownerSide": true,
+            "otherEntityRelationshipName": "candleStick"
+        }
+    ],
+    "fields": [
+        {
+            "fieldName": "time",
+            "fieldType": "Instant"
+        },
+        {
+            "fieldName": "volume",
+            "fieldType": "Integer"
+        },
+        {
+            "fieldName": "complete",
+            "fieldType": "Boolean"
+        }
+    ],
+    "changelogDate": "20171111123132",
+    "entityTableName": "candle_stick",
+    "dto": "no",
+    "pagination": "infinite-scroll",
+    "service": "no",
+    "jpaMetamodelFiltering": false
+}

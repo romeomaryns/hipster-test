@@ -1,0 +1,195 @@
+<form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+
+    <div class="modal-header">
+        <h4 class="modal-title" id="myOandaAccountLabel">Create or edit a Oanda Account</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                (click)="clear()">&times;</button>
+    </div>
+    <div class="modal-body">
+        <jhi-alert-error></jhi-alert-error>
+        <div class="form-group" [hidden]="!oandaAccount.id">
+            <label for="id">ID</label>
+            <input type="text" class="form-control" id="id" name="id"
+                   [(ngModel)]="oandaAccount.id" readonly />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_alias">Alias</label>
+            <input type="text" class="form-control" name="alias" id="field_alias"
+                [(ngModel)]="oandaAccount.alias"  />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_balance">Balance</label>
+            <input type="number" class="form-control" name="balance" id="field_balance"
+                [(ngModel)]="oandaAccount.balance"  />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_currency">Currency</label>
+            <input type="text" class="form-control" name="currency" id="field_currency"
+                [(ngModel)]="oandaAccount.currency"  />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_createdByUserID">Created By User ID</label>
+            <input type="number" class="form-control" name="createdByUserID" id="field_createdByUserID"
+                [(ngModel)]="oandaAccount.createdByUserID"  />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_createdTime">Created Time</label>
+            <div class="d-flex">
+                <input id="field_createdTime" type="datetime-local" class="form-control" name="createdTime" [(ngModel)]="oandaAccount.createdTime"
+                  />
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_pl">Pl</label>
+            <input type="number" class="form-control" name="pl" id="field_pl"
+                [(ngModel)]="oandaAccount.pl"  />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_resettablePL">Resettable PL</label>
+            <input type="number" class="form-control" name="resettablePL" id="field_resettablePL"
+                [(ngModel)]="oandaAccount.resettablePL"  />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_resettabledPLTime">Resettabled PL Time</label>
+            <div class="d-flex">
+                <input id="field_resettabledPLTime" type="datetime-local" class="form-control" name="resettabledPLTime" [(ngModel)]="oandaAccount.resettabledPLTime"
+                  />
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_commission">Commission</label>
+            <input type="number" class="form-control" name="commission" id="field_commission"
+                [(ngModel)]="oandaAccount.commission"  />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_marginRate">Margin Rate</label>
+            <input type="number" class="form-control" name="marginRate" id="field_marginRate"
+                [(ngModel)]="oandaAccount.marginRate"  />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_marginCallEnterTime">Margin Call Enter Time</label>
+            <div class="d-flex">
+                <input id="field_marginCallEnterTime" type="datetime-local" class="form-control" name="marginCallEnterTime" [(ngModel)]="oandaAccount.marginCallEnterTime"
+                  />
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_marginCallExtensionCount">Margin Call Extension Count</label>
+            <input type="number" class="form-control" name="marginCallExtensionCount" id="field_marginCallExtensionCount"
+                [(ngModel)]="oandaAccount.marginCallExtensionCount"  />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_lastMarginCallExtensionTime">Last Margin Call Extension Time</label>
+            <div class="d-flex">
+                <input id="field_lastMarginCallExtensionTime" type="datetime-local" class="form-control" name="lastMarginCallExtensionTime" [(ngModel)]="oandaAccount.lastMarginCallExtensionTime"
+                  />
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_openTradeCount">Open Trade Count</label>
+            <input type="number" class="form-control" name="openTradeCount" id="field_openTradeCount"
+                [(ngModel)]="oandaAccount.openTradeCount"  />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_openPositionCount">Open Position Count</label>
+            <input type="number" class="form-control" name="openPositionCount" id="field_openPositionCount"
+                [(ngModel)]="oandaAccount.openPositionCount"  />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_pendingOrderCount">Pending Order Count</label>
+            <input type="number" class="form-control" name="pendingOrderCount" id="field_pendingOrderCount"
+                [(ngModel)]="oandaAccount.pendingOrderCount"  />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_hedgingEnabled">Hedging Enabled</label>
+            <input type="checkbox" class="form-control" name="hedgingEnabled" id="field_hedgingEnabled"
+                [(ngModel)]="oandaAccount.hedgingEnabled"  />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_unrealizedPL">Unrealized PL</label>
+            <input type="number" class="form-control" name="unrealizedPL" id="field_unrealizedPL"
+                [(ngModel)]="oandaAccount.unrealizedPL"  />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_nAV">N AV</label>
+            <input type="number" class="form-control" name="nAV" id="field_nAV"
+                [(ngModel)]="oandaAccount.nAV"  />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_marginUsed">Margin Used</label>
+            <input type="number" class="form-control" name="marginUsed" id="field_marginUsed"
+                [(ngModel)]="oandaAccount.marginUsed"  />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_marginAvailable">Margin Available</label>
+            <input type="number" class="form-control" name="marginAvailable" id="field_marginAvailable"
+                [(ngModel)]="oandaAccount.marginAvailable"  />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_positionValue">Position Value</label>
+            <input type="number" class="form-control" name="positionValue" id="field_positionValue"
+                [(ngModel)]="oandaAccount.positionValue"  />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_marginCloseoutUnrealizedPL">Margin Closeout Unrealized PL</label>
+            <input type="number" class="form-control" name="marginCloseoutUnrealizedPL" id="field_marginCloseoutUnrealizedPL"
+                [(ngModel)]="oandaAccount.marginCloseoutUnrealizedPL"  />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_marginCloseoutNAV">Margin Closeout NAV</label>
+            <input type="number" class="form-control" name="marginCloseoutNAV" id="field_marginCloseoutNAV"
+                [(ngModel)]="oandaAccount.marginCloseoutNAV"  />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_marginCloseoutMarginUsed">Margin Closeout Margin Used</label>
+            <input type="number" class="form-control" name="marginCloseoutMarginUsed" id="field_marginCloseoutMarginUsed"
+                [(ngModel)]="oandaAccount.marginCloseoutMarginUsed"  />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_marginCloseoutPercent">Margin Closeout Percent</label>
+            <input type="number" class="form-control" name="marginCloseoutPercent" id="field_marginCloseoutPercent"
+                [(ngModel)]="oandaAccount.marginCloseoutPercent"  />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_marginCloseoutPositionValue">Margin Closeout Position Value</label>
+            <input type="number" class="form-control" name="marginCloseoutPositionValue" id="field_marginCloseoutPositionValue"
+                [(ngModel)]="oandaAccount.marginCloseoutPositionValue"  />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_withdrawalLimit">Withdrawal Limit</label>
+            <input type="number" class="form-control" name="withdrawalLimit" id="field_withdrawalLimit"
+                [(ngModel)]="oandaAccount.withdrawalLimit"  />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_marginCallMarginUsed">Margin Call Margin Used</label>
+            <input type="number" class="form-control" name="marginCallMarginUsed" id="field_marginCallMarginUsed"
+                [(ngModel)]="oandaAccount.marginCallMarginUsed"  />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_marginCallPercent">Margin Call Percent</label>
+            <input type="number" class="form-control" name="marginCallPercent" id="field_marginCallPercent"
+                [(ngModel)]="oandaAccount.marginCallPercent"  />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_lastTransactionID">Last Transaction ID</label>
+            <input type="text" class="form-control" name="lastTransactionID" id="field_lastTransactionID"
+                [(ngModel)]="oandaAccount.lastTransactionID"  />
+        </div>
+
+        <div class="form-group">
+            <label class="form-control-label" for="field_user">User</label>
+            <select class="form-control" id="field_user" name="user" [(ngModel)]="oandaAccount.user" >
+                <option [ngValue]="null"></option>
+                <option [ngValue]="userOption.id === oandaAccount.user?.id ? oandaAccount.user : userOption" *ngFor="let userOption of users; trackBy: trackUserById">{{userOption.login}}</option>
+            </select>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="clear()">
+            <span class="fa fa-ban"></span>&nbsp;<span>Cancel</span>
+        </button>
+        <button type="submit" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+            <span class="fa fa-save"></span>&nbsp;<span>Save</span>
+        </button>
+    </div>
+</form>

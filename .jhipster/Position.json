@@ -1,0 +1,55 @@
+{
+    "fluentMethods": true,
+    "relationships": [
+        {
+            "relationshipName": "oandaAccount",
+            "otherEntityName": "oandaAccount",
+            "relationshipType": "many-to-one",
+            "otherEntityField": "id"
+        },
+        {
+            "relationshipType": "one-to-one",
+            "relationshipName": "longValue",
+            "otherEntityName": "positionSide",
+            "otherEntityField": "id",
+            "ownerSide": true,
+            "otherEntityRelationshipName": "position"
+        },
+        {
+            "relationshipType": "one-to-one",
+            "relationshipName": "shortValue",
+            "otherEntityName": "positionSide",
+            "otherEntityField": "id",
+            "ownerSide": true,
+            "otherEntityRelationshipName": "position"
+        }
+    ],
+    "fields": [
+        {
+            "fieldName": "instrument",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "pl",
+            "fieldType": "Double"
+        },
+        {
+            "fieldName": "unrealizedPL",
+            "fieldType": "Double"
+        },
+        {
+            "fieldName": "resettablePL",
+            "fieldType": "Double"
+        },
+        {
+            "fieldName": "commission",
+            "fieldType": "Double"
+        }
+    ],
+    "changelogDate": "20171109151023",
+    "entityTableName": "position",
+    "dto": "no",
+    "pagination": "infinite-scroll",
+    "service": "no",
+    "jpaMetamodelFiltering": false
+}

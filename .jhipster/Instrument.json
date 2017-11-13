@@ -1,0 +1,64 @@
+{
+    "fluentMethods": true,
+    "relationships": [],
+    "fields": [
+        {
+            "fieldName": "name",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "type",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "displayName",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "pipLocation",
+            "fieldType": "Integer"
+        },
+        {
+            "fieldName": "displayPrecision",
+            "fieldType": "Integer"
+        },
+        {
+            "fieldName": "tradeUnitsPrecision",
+            "fieldType": "Integer"
+        },
+        {
+            "fieldName": "minimumTradeSize",
+            "fieldType": "Double"
+        },
+        {
+            "fieldName": "maximumTrailingStopDistance",
+            "fieldType": "Double"
+        },
+        {
+            "fieldName": "minimumTrailingStopDistance",
+            "fieldType": "Double"
+        },
+        {
+            "fieldName": "maximumPositionSize",
+            "fieldType": "Double"
+        },
+        {
+            "fieldName": "maximumOrderUnits",
+            "fieldType": "Double"
+        },
+        {
+            "fieldName": "marginRate",
+            "fieldType": "Double"
+        },
+        {
+            "fieldName": "commission",
+            "fieldType": "Double"
+        }
+    ],
+    "changelogDate": "20171111102453",
+    "entityTableName": "instrument",
+    "dto": "no",
+    "pagination": "infinite-scroll",
+    "service": "no",
+    "jpaMetamodelFiltering": false
+}

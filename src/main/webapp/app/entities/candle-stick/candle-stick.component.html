@@ -1,0 +1,72 @@
+<div>
+    <h2>
+        <span>Candle Sticks</span>
+        <button class="btn btn-primary float-right jh-create-entity create-candle-stick" [routerLink]="['/', { outlets: { popup: ['candle-stick-new'] } }]">
+            <span class="fa fa-plus"></span>
+            <span >
+            Create new Candle Stick
+            </span>
+        </button>
+    </h2>
+    <jhi-alert></jhi-alert>
+    <div class="row">
+    </div>
+    <br/>
+    <div class="table-responsive" *ngIf="candleSticks">
+        <table class="table table-striped">
+            <thead>
+            <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="reset.bind(this)">
+            <th jhiSortBy="id"><span>ID</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="time"><span>Time</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="volume"><span>Volume</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="complete"><span>Complete</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="bid.id"><span>Bid</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="ask.id"><span>Ask</span> <span class="fa fa-sort"></span></th>
+            <th></th>
+            </tr>
+            </thead>
+            <tbody infinite-scroll (scrolled)="loadPage(page + 1)" [infiniteScrollDisabled]="page >= links['last']" [infiniteScrollDistance]="0">
+            <tr *ngFor="let candleStick of candleSticks ;trackBy: trackId">
+                <td><a [routerLink]="['../candle-stick', candleStick.id ]">{{candleStick.id}}</a></td>
+                <td>{{candleStick.time | date:'medium'}}</td>
+                <td>{{candleStick.volume}}</td>
+                <td>{{candleStick.complete}}</td>
+                <td>
+                    <div *ngIf="candleStick.bid">
+                        <a [routerLink]="['../candle-stick-data', candleStick.bid?.id ]" >{{candleStick.bid?.id}}</a>
+                    </div>
+                </td>
+                <td>
+                    <div *ngIf="candleStick.ask">
+                        <a [routerLink]="['../candle-stick-data', candleStick.ask?.id ]" >{{candleStick.ask?.id}}</a>
+                    </div>
+                </td>
+                <td class="text-right">
+                    <div class="btn-group flex-btn-group-container">
+                        <button type="submit"
+                                [routerLink]="['../candle-stick', candleStick.id ]"
+                                class="btn btn-info btn-sm">
+                            <span class="fa fa-eye"></span>
+                            <span class="d-none d-md-inline">View</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/', { outlets: { popup: 'candle-stick/'+ candleStick.id + '/edit'} }]"
+                                replaceUrl="true"
+                                class="btn btn-primary btn-sm">
+                            <span class="fa fa-pencil"></span>
+                            <span class="d-none d-md-inline">Edit</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/', { outlets: { popup: 'candle-stick/'+ candleStick.id + '/delete'} }]"
+                                replaceUrl="true"
+                                class="btn btn-danger btn-sm">
+                            <span class="fa fa-remove"></span>
+                            <span class="d-none d-md-inline">Delete</span>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

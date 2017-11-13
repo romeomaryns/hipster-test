@@ -1,0 +1,59 @@
+
+<div *ngIf="position">
+    <h2><span>Position</span> {{position.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row-md jh-entity-details">
+        <dt><span>Instrument</span></dt>
+        <dd>
+            <span>{{position.instrument}}</span>
+        </dd>
+        <dt><span>Pl</span></dt>
+        <dd>
+            <span>{{position.pl}}</span>
+        </dd>
+        <dt><span>Unrealized PL</span></dt>
+        <dd>
+            <span>{{position.unrealizedPL}}</span>
+        </dd>
+        <dt><span>Resettable PL</span></dt>
+        <dd>
+            <span>{{position.resettablePL}}</span>
+        </dd>
+        <dt><span>Commission</span></dt>
+        <dd>
+            <span>{{position.commission}}</span>
+        </dd>
+        <dt><span>Oanda Account</span></dt>
+        <dd>
+            <div *ngIf="position.oandaAccount">
+                <a [routerLink]="['/oanda-account', position.oandaAccount?.id]">{{position.oandaAccount?.id}}</a>
+            </div>
+        </dd>
+        <dt><span>Long Value</span></dt>
+        <dd>
+            <div *ngIf="position.longValue">
+                <a [routerLink]="['/position-side', position.longValue?.id]">{{position.longValue?.id}}</a>
+            </div>
+        </dd>
+        <dt><span>Short Value</span></dt>
+        <dd>
+            <div *ngIf="position.shortValue">
+                <a [routerLink]="['/position-side', position.shortValue?.id]">{{position.shortValue?.id}}</a>
+            </div>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            (click)="previousState()"
+            class="btn btn-info">
+        <span class="fa fa-arrow-left"></span>&nbsp;<span> Back</span>
+    </button>
+
+    <button type="button"
+            [routerLink]="['/', { outlets: { popup: 'position/'+ position.id + '/edit'} }]"
+            replaceUrl="true"
+            class="btn btn-primary">
+        <span class="fa fa-pencil"></span>&nbsp;<span> Edit</span>
+    </button>
+</div>

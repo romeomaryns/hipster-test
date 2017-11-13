@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd
+                        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+    <property name="now" value="now()" dbms="h2"/>
+
+    <property name="now" value="current_timestamp" dbms="postgresql"/>
+
+    <property name="floatType" value="float4" dbms="postgresql, h2"/>
+    <property name="floatType" value="float" dbms="mysql, oracle, mssql"/>
+
+    <!--
+        Added the entity OandaAccount.
+    -->
+    <changeSet id="20171109151022-1" author="jhipster">
+        <createTable tableName="oanda_account">
+            <column name="id" type="bigint" autoIncrement="${autoIncrement}">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="alias" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="balance" type="double">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="currency" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="created_by_user_id" type="integer">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="created_time" type="timestamp">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="pl" type="double">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="resettable_pl" type="double">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="resettabled_pl_time" type="timestamp">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="commission" type="double">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="margin_rate" type="double">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="margin_call_enter_time" type="timestamp">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="margin_call_extension_count" type="integer">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="last_margin_call_extension_time" type="timestamp">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="open_trade_count" type="integer">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="open_position_count" type="integer">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="pending_order_count" type="integer">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="hedging_enabled" type="boolean">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="unrealized_pl" type="double">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="n_av" type="double">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="margin_used" type="double">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="margin_available" type="double">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="position_value" type="double">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="margin_closeout_unrealized_pl" type="double">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="margin_closeout_nav" type="double">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="margin_closeout_margin_used" type="double">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="margin_closeout_percent" type="double">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="margin_closeout_position_value" type="double">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="withdrawal_limit" type="double">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="margin_call_margin_used" type="double">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="margin_call_percent" type="double">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="last_transaction_id" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="user_id" type="bigint">
+                <constraints nullable="true" />
+            </column>
+
+            <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here, do not remove-->
+        </createTable>
+        <dropDefaultValue tableName="oanda_account" columnName="created_time" columnDataType="datetime"/>
+        <dropDefaultValue tableName="oanda_account" columnName="resettabled_pl_time" columnDataType="datetime"/>
+        <dropDefaultValue tableName="oanda_account" columnName="margin_call_enter_time" columnDataType="datetime"/>
+        <dropDefaultValue tableName="oanda_account" columnName="last_margin_call_extension_time" columnDataType="datetime"/>
+        
+    </changeSet>
+    <!-- jhipster-needle-liquibase-add-changeset - JHipster will add changesets here, do not remove-->
+</databaseChangeLog>

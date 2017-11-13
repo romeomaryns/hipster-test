@@ -1,0 +1,90 @@
+<form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+
+    <div class="modal-header">
+        <h4 class="modal-title" id="myInstrumentLabel">Create or edit a Instrument</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                (click)="clear()">&times;</button>
+    </div>
+    <div class="modal-body">
+        <jhi-alert-error></jhi-alert-error>
+        <div class="form-group" [hidden]="!instrument.id">
+            <label for="id">ID</label>
+            <input type="text" class="form-control" id="id" name="id"
+                   [(ngModel)]="instrument.id" readonly />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_name">Name</label>
+            <input type="text" class="form-control" name="name" id="field_name"
+                [(ngModel)]="instrument.name"  />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_type">Type</label>
+            <input type="text" class="form-control" name="type" id="field_type"
+                [(ngModel)]="instrument.type"  />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_displayName">Display Name</label>
+            <input type="text" class="form-control" name="displayName" id="field_displayName"
+                [(ngModel)]="instrument.displayName"  />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_pipLocation">Pip Location</label>
+            <input type="number" class="form-control" name="pipLocation" id="field_pipLocation"
+                [(ngModel)]="instrument.pipLocation"  />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_displayPrecision">Display Precision</label>
+            <input type="number" class="form-control" name="displayPrecision" id="field_displayPrecision"
+                [(ngModel)]="instrument.displayPrecision"  />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_tradeUnitsPrecision">Trade Units Precision</label>
+            <input type="number" class="form-control" name="tradeUnitsPrecision" id="field_tradeUnitsPrecision"
+                [(ngModel)]="instrument.tradeUnitsPrecision"  />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_minimumTradeSize">Minimum Trade Size</label>
+            <input type="number" class="form-control" name="minimumTradeSize" id="field_minimumTradeSize"
+                [(ngModel)]="instrument.minimumTradeSize"  />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_maximumTrailingStopDistance">Maximum Trailing Stop Distance</label>
+            <input type="number" class="form-control" name="maximumTrailingStopDistance" id="field_maximumTrailingStopDistance"
+                [(ngModel)]="instrument.maximumTrailingStopDistance"  />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_minimumTrailingStopDistance">Minimum Trailing Stop Distance</label>
+            <input type="number" class="form-control" name="minimumTrailingStopDistance" id="field_minimumTrailingStopDistance"
+                [(ngModel)]="instrument.minimumTrailingStopDistance"  />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_maximumPositionSize">Maximum Position Size</label>
+            <input type="number" class="form-control" name="maximumPositionSize" id="field_maximumPositionSize"
+                [(ngModel)]="instrument.maximumPositionSize"  />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_maximumOrderUnits">Maximum Order Units</label>
+            <input type="number" class="form-control" name="maximumOrderUnits" id="field_maximumOrderUnits"
+                [(ngModel)]="instrument.maximumOrderUnits"  />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_marginRate">Margin Rate</label>
+            <input type="number" class="form-control" name="marginRate" id="field_marginRate"
+                [(ngModel)]="instrument.marginRate"  />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_commission">Commission</label>
+            <input type="number" class="form-control" name="commission" id="field_commission"
+                [(ngModel)]="instrument.commission"  />
+        </div>
+
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="clear()">
+            <span class="fa fa-ban"></span>&nbsp;<span>Cancel</span>
+        </button>
+        <button type="submit" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+            <span class="fa fa-save"></span>&nbsp;<span>Save</span>
+        </button>
+    </div>
+</form>

@@ -1,0 +1,149 @@
+
+<div *ngIf="oandaAccount">
+    <h2><span>Oanda Account</span> {{oandaAccount.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row-md jh-entity-details">
+        <dt><span>Alias</span></dt>
+        <dd>
+            <span>{{oandaAccount.alias}}</span>
+        </dd>
+        <dt><span>Balance</span></dt>
+        <dd>
+            <span>{{oandaAccount.balance}}</span>
+        </dd>
+        <dt><span>Currency</span></dt>
+        <dd>
+            <span>{{oandaAccount.currency}}</span>
+        </dd>
+        <dt><span>Created By User ID</span></dt>
+        <dd>
+            <span>{{oandaAccount.createdByUserID}}</span>
+        </dd>
+        <dt><span>Created Time</span></dt>
+        <dd>
+            <span>{{oandaAccount.createdTime | date:'medium'}}</span>
+        </dd>
+        <dt><span>Pl</span></dt>
+        <dd>
+            <span>{{oandaAccount.pl}}</span>
+        </dd>
+        <dt><span>Resettable PL</span></dt>
+        <dd>
+            <span>{{oandaAccount.resettablePL}}</span>
+        </dd>
+        <dt><span>Resettabled PL Time</span></dt>
+        <dd>
+            <span>{{oandaAccount.resettabledPLTime | date:'medium'}}</span>
+        </dd>
+        <dt><span>Commission</span></dt>
+        <dd>
+            <span>{{oandaAccount.commission}}</span>
+        </dd>
+        <dt><span>Margin Rate</span></dt>
+        <dd>
+            <span>{{oandaAccount.marginRate}}</span>
+        </dd>
+        <dt><span>Margin Call Enter Time</span></dt>
+        <dd>
+            <span>{{oandaAccount.marginCallEnterTime | date:'medium'}}</span>
+        </dd>
+        <dt><span>Margin Call Extension Count</span></dt>
+        <dd>
+            <span>{{oandaAccount.marginCallExtensionCount}}</span>
+        </dd>
+        <dt><span>Last Margin Call Extension Time</span></dt>
+        <dd>
+            <span>{{oandaAccount.lastMarginCallExtensionTime | date:'medium'}}</span>
+        </dd>
+        <dt><span>Open Trade Count</span></dt>
+        <dd>
+            <span>{{oandaAccount.openTradeCount}}</span>
+        </dd>
+        <dt><span>Open Position Count</span></dt>
+        <dd>
+            <span>{{oandaAccount.openPositionCount}}</span>
+        </dd>
+        <dt><span>Pending Order Count</span></dt>
+        <dd>
+            <span>{{oandaAccount.pendingOrderCount}}</span>
+        </dd>
+        <dt><span>Hedging Enabled</span></dt>
+        <dd>
+            <span>{{oandaAccount.hedgingEnabled}}</span>
+        </dd>
+        <dt><span>Unrealized PL</span></dt>
+        <dd>
+            <span>{{oandaAccount.unrealizedPL}}</span>
+        </dd>
+        <dt><span>N AV</span></dt>
+        <dd>
+            <span>{{oandaAccount.nAV}}</span>
+        </dd>
+        <dt><span>Margin Used</span></dt>
+        <dd>
+            <span>{{oandaAccount.marginUsed}}</span>
+        </dd>
+        <dt><span>Margin Available</span></dt>
+        <dd>
+            <span>{{oandaAccount.marginAvailable}}</span>
+        </dd>
+        <dt><span>Position Value</span></dt>
+        <dd>
+            <span>{{oandaAccount.positionValue}}</span>
+        </dd>
+        <dt><span>Margin Closeout Unrealized PL</span></dt>
+        <dd>
+            <span>{{oandaAccount.marginCloseoutUnrealizedPL}}</span>
+        </dd>
+        <dt><span>Margin Closeout NAV</span></dt>
+        <dd>
+            <span>{{oandaAccount.marginCloseoutNAV}}</span>
+        </dd>
+        <dt><span>Margin Closeout Margin Used</span></dt>
+        <dd>
+            <span>{{oandaAccount.marginCloseoutMarginUsed}}</span>
+        </dd>
+        <dt><span>Margin Closeout Percent</span></dt>
+        <dd>
+            <span>{{oandaAccount.marginCloseoutPercent}}</span>
+        </dd>
+        <dt><span>Margin Closeout Position Value</span></dt>
+        <dd>
+            <span>{{oandaAccount.marginCloseoutPositionValue}}</span>
+        </dd>
+        <dt><span>Withdrawal Limit</span></dt>
+        <dd>
+            <span>{{oandaAccount.withdrawalLimit}}</span>
+        </dd>
+        <dt><span>Margin Call Margin Used</span></dt>
+        <dd>
+            <span>{{oandaAccount.marginCallMarginUsed}}</span>
+        </dd>
+        <dt><span>Margin Call Percent</span></dt>
+        <dd>
+            <span>{{oandaAccount.marginCallPercent}}</span>
+        </dd>
+        <dt><span>Last Transaction ID</span></dt>
+        <dd>
+            <span>{{oandaAccount.lastTransactionID}}</span>
+        </dd>
+        <dt><span>User</span></dt>
+        <dd>
+            {{oandaAccount.user?.login}}
+        </dd>
+    </dl>
+
+    <button type="submit"
+            (click)="previousState()"
+            class="btn btn-info">
+        <span class="fa fa-arrow-left"></span>&nbsp;<span> Back</span>
+    </button>
+
+    <button type="button"
+            [routerLink]="['/', { outlets: { popup: 'oanda-account/'+ oandaAccount.id + '/edit'} }]"
+            replaceUrl="true"
+            class="btn btn-primary">
+        <span class="fa fa-pencil"></span>&nbsp;<span> Edit</span>
+    </button>
+</div>

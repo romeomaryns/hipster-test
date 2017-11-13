@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+    <!--
+        Added the constraints for entity Position.
+    -->
+    <changeSet id="20171109151023-2" author="jhipster">
+        
+        <addForeignKeyConstraint baseColumnNames="oanda_account_id"
+                                 baseTableName="position"
+                                 constraintName="fk_position_oanda_account_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="oanda_account"/>
+
+        <addForeignKeyConstraint baseColumnNames="long_value_id"
+                                 baseTableName="position"
+                                 constraintName="fk_position_long_value_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="position_side"/>
+
+        <addForeignKeyConstraint baseColumnNames="short_value_id"
+                                 baseTableName="position"
+                                 constraintName="fk_position_short_value_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="position_side"/>
+
+    </changeSet>
+</databaseChangeLog>

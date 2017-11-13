@@ -1,0 +1,32 @@
+{
+    "fluentMethods": true,
+    "relationships": [],
+    "fields": [
+        {
+            "fieldName": "units",
+            "fieldType": "Double"
+        },
+        {
+            "fieldName": "averagePrice",
+            "fieldType": "Double"
+        },
+        {
+            "fieldName": "pl",
+            "fieldType": "Double"
+        },
+        {
+            "fieldName": "unrealizedPL",
+            "fieldType": "Double"
+        },
+        {
+            "fieldName": "resettablePL",
+            "fieldType": "Double"
+        }
+    ],
+    "changelogDate": "20171109151024",
+    "entityTableName": "position_side",
+    "dto": "no",
+    "pagination": "infinite-scroll",
+    "service": "no",
+    "jpaMetamodelFiltering": false
+}

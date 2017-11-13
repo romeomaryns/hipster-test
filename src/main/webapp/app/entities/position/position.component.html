@@ -1,0 +1,82 @@
+<div>
+    <h2>
+        <span>Positions</span>
+        <button class="btn btn-primary float-right jh-create-entity create-position" [routerLink]="['/', { outlets: { popup: ['position-new'] } }]">
+            <span class="fa fa-plus"></span>
+            <span >
+            Create new Position
+            </span>
+        </button>
+    </h2>
+    <jhi-alert></jhi-alert>
+    <div class="row">
+    </div>
+    <br/>
+    <div class="table-responsive" *ngIf="positions">
+        <table class="table table-striped">
+            <thead>
+            <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="reset.bind(this)">
+            <th jhiSortBy="id"><span>ID</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="instrument"><span>Instrument</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="pl"><span>Pl</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="unrealizedPL"><span>Unrealized PL</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="resettablePL"><span>Resettable PL</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="commission"><span>Commission</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="oandaAccount.id"><span>Oanda Account</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="longValue.id"><span>Long Value</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="shortValue.id"><span>Short Value</span> <span class="fa fa-sort"></span></th>
+            <th></th>
+            </tr>
+            </thead>
+            <tbody infinite-scroll (scrolled)="loadPage(page + 1)" [infiniteScrollDisabled]="page >= links['last']" [infiniteScrollDistance]="0">
+            <tr *ngFor="let position of positions ;trackBy: trackId">
+                <td><a [routerLink]="['../position', position.id ]">{{position.id}}</a></td>
+                <td>{{position.instrument}}</td>
+                <td>{{position.pl}}</td>
+                <td>{{position.unrealizedPL}}</td>
+                <td>{{position.resettablePL}}</td>
+                <td>{{position.commission}}</td>
+                <td>
+                    <div *ngIf="position.oandaAccount">
+                        <a [routerLink]="['../oanda-account', position.oandaAccount?.id ]" >{{position.oandaAccount?.id}}</a>
+                    </div>
+                </td>
+                <td>
+                    <div *ngIf="position.longValue">
+                        <a [routerLink]="['../position-side', position.longValue?.id ]" >{{position.longValue?.id}}</a>
+                    </div>
+                </td>
+                <td>
+                    <div *ngIf="position.shortValue">
+                        <a [routerLink]="['../position-side', position.shortValue?.id ]" >{{position.shortValue?.id}}</a>
+                    </div>
+                </td>
+                <td class="text-right">
+                    <div class="btn-group flex-btn-group-container">
+                        <button type="submit"
+                                [routerLink]="['../position', position.id ]"
+                                class="btn btn-info btn-sm">
+                            <span class="fa fa-eye"></span>
+                            <span class="d-none d-md-inline">View</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/', { outlets: { popup: 'position/'+ position.id + '/edit'} }]"
+                                replaceUrl="true"
+                                class="btn btn-primary btn-sm">
+                            <span class="fa fa-pencil"></span>
+                            <span class="d-none d-md-inline">Edit</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/', { outlets: { popup: 'position/'+ position.id + '/delete'} }]"
+                                replaceUrl="true"
+                                class="btn btn-danger btn-sm">
+                            <span class="fa fa-remove"></span>
+                            <span class="d-none d-md-inline">Delete</span>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

@@ -1,0 +1,80 @@
+<div>
+    <h2>
+        <span>Instruments</span>
+        <button class="btn btn-primary float-right jh-create-entity create-instrument" [routerLink]="['/', { outlets: { popup: ['instrument-new'] } }]">
+            <span class="fa fa-plus"></span>
+            <span >
+            Create new Instrument
+            </span>
+        </button>
+    </h2>
+    <jhi-alert></jhi-alert>
+    <div class="row">
+    </div>
+    <br/>
+    <div class="table-responsive" *ngIf="instruments">
+        <table class="table table-striped">
+            <thead>
+            <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="reset.bind(this)">
+            <th jhiSortBy="id"><span>ID</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="name"><span>Name</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="type"><span>Type</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="displayName"><span>Display Name</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="pipLocation"><span>Pip Location</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="displayPrecision"><span>Display Precision</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="tradeUnitsPrecision"><span>Trade Units Precision</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="minimumTradeSize"><span>Minimum Trade Size</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="maximumTrailingStopDistance"><span>Maximum Trailing Stop Distance</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="minimumTrailingStopDistance"><span>Minimum Trailing Stop Distance</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="maximumPositionSize"><span>Maximum Position Size</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="maximumOrderUnits"><span>Maximum Order Units</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="marginRate"><span>Margin Rate</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="commission"><span>Commission</span> <span class="fa fa-sort"></span></th>
+            <th></th>
+            </tr>
+            </thead>
+            <tbody infinite-scroll (scrolled)="loadPage(page + 1)" [infiniteScrollDisabled]="page >= links['last']" [infiniteScrollDistance]="0">
+            <tr *ngFor="let instrument of instruments ;trackBy: trackId">
+                <td><a [routerLink]="['../instrument', instrument.id ]">{{instrument.id}}</a></td>
+                <td>{{instrument.name}}</td>
+                <td>{{instrument.type}}</td>
+                <td>{{instrument.displayName}}</td>
+                <td>{{instrument.pipLocation}}</td>
+                <td>{{instrument.displayPrecision}}</td>
+                <td>{{instrument.tradeUnitsPrecision}}</td>
+                <td>{{instrument.minimumTradeSize}}</td>
+                <td>{{instrument.maximumTrailingStopDistance}}</td>
+                <td>{{instrument.minimumTrailingStopDistance}}</td>
+                <td>{{instrument.maximumPositionSize}}</td>
+                <td>{{instrument.maximumOrderUnits}}</td>
+                <td>{{instrument.marginRate}}</td>
+                <td>{{instrument.commission}}</td>
+                <td class="text-right">
+                    <div class="btn-group flex-btn-group-container">
+                        <button type="submit"
+                                [routerLink]="['../instrument', instrument.id ]"
+                                class="btn btn-info btn-sm">
+                            <span class="fa fa-eye"></span>
+                            <span class="d-none d-md-inline">View</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/', { outlets: { popup: 'instrument/'+ instrument.id + '/edit'} }]"
+                                replaceUrl="true"
+                                class="btn btn-primary btn-sm">
+                            <span class="fa fa-pencil"></span>
+                            <span class="d-none d-md-inline">Edit</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/', { outlets: { popup: 'instrument/'+ instrument.id + '/delete'} }]"
+                                replaceUrl="true"
+                                class="btn btn-danger btn-sm">
+                            <span class="fa fa-remove"></span>
+                            <span class="d-none d-md-inline">Delete</span>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

@@ -1,0 +1,27 @@
+<div class="row">
+    <div class="col-md-3">
+        <span class="hipster img-fluid rounded"></span>
+    </div>
+    <div class="col-md-9">
+        <h1 class="display-4">Welkom, Romeo!</h1>
+        <p class="lead">Dit is de startpagina</p>
+
+        <div [ngSwitch]="isAuthenticated()">
+            <div class="alert alert-success" *ngSwitchCase="true">
+                <span *ngIf="account"
+                   > U bent ingelogd als gebruiker "{{account.login}}". </span>
+            </div>
+
+            <div class="alert alert-warning" *ngSwitchCase="false">
+                <span>Als u wil kan u </span>
+                <a class="alert-link" (click)="login()">inloggen</a><span>, u kan de standaard accounts:<br/>- Administrator (login="admin" en passwoord="admin") <br/>- User (login="user" en passwoord="user").</span>
+            </div>
+            <div class="alert alert-warning" *ngSwitchCase="false">
+                <span>Heeft u nog geen account?</span>
+                <a class="alert-link" routerLink="register">Registreer een nieuwe account</a>
+            </div>
+        </div>
+
+
+    </div>
+</div>

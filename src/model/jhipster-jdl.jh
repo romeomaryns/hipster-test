@@ -1,0 +1,131 @@
+entity OandaAccount{
+    alias String
+    balance Double
+    currency String
+    createdByUserID Integer
+    createdTime Instant
+    pl Double
+    resettablePL Double
+    resettabledPLTime Instant
+    commission Double
+    marginRate Double
+    marginCallEnterTime Instant
+    marginCallExtensionCount Integer
+    lastMarginCallExtensionTime Instant
+    openTradeCount Integer
+    openPositionCount Integer
+    pendingOrderCount Integer
+    hedgingEnabled Boolean
+    unrealizedPL Double
+    nAV Double
+    marginUsed Double
+    marginAvailable Double
+    positionValue Double
+    marginCloseoutUnrealizedPL Double
+    marginCloseoutNAV Double
+    marginCloseoutMarginUsed Double
+    marginCloseoutPercent Double
+    marginCloseoutPositionValue Double
+    withdrawalLimit Double
+    marginCallMarginUsed Double
+    marginCallPercent Double
+    lastTransactionID String
+}
+
+entity Position {
+	instrument String
+    pl Double
+    unrealizedPL Double
+    resettablePL Double
+    commission Double
+}
+
+entity PositionSide{
+	units Double
+    averagePrice Double
+    //tradeIDs ArrayList<String>()
+    pl Double
+    unrealizedPL Double
+    resettablePL Double
+}
+
+entity Instrument{
+    name String
+    type String
+    displayName String
+    pipLocation Integer
+    displayPrecision Integer
+    tradeUnitsPrecision Integer
+    minimumTradeSize Double
+    maximumTrailingStopDistance Double
+    minimumTrailingStopDistance Double
+    maximumPositionSize Double
+    maximumOrderUnits Double
+    marginRate Double
+    commission Double
+}
+
+enum InstrumentType{
+    CURRENCY,
+    CFD,
+    METAL
+}
+
+enum CandleStickGranularity{
+    S5,
+    S10,
+    S15,
+    S30,
+    M1,
+    M2,
+    M4,
+    M5,
+    M10,
+    M15,
+    M30,
+    H1,
+    H2,
+    H3,
+    H4,
+    H6,
+    H8,
+    H12,
+    D,
+    W,
+    M
+}
+
+entity CandleStick{
+	time Instant
+    volume Integer
+    complete Boolean
+}
+
+entity CandleStickData{
+	o Double
+    h Double
+    l Double
+    c Double
+}
+
+relationship OneToOne {
+	Position{longValue} to PositionSide,
+    Position{shortValue} to PositionSide,
+    CandleStick{bid} to CandleStickData,
+    CandleStick{ask} to CandleStickData
+}
+// defining multiple OneToMany relationships with comments
+relationship OneToMany {
+	OandaAccount{positions} to Position
+  //  Account{trades} to TradeSummary,
+ //   Account{orders} to Order
+}
+relationship ManyToOne {
+    OandaAccount{user(login)} to User
+}
+
+
+
+
+// Set pagination options
+paginate * with infinite-scroll
