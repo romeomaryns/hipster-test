@@ -12,6 +12,7 @@ import { HipsterEntityModule } from './entities/entity.module';
 
 import { customHttpProvider } from './blocks/interceptor/http.provider';
 import { PaginationConfig } from './blocks/config/uib-pagination.config';
+import {HipsterDashboardModule } from './dashboard/dashboard.module';
 
 // jhipster-needle-angular-add-module-import JHipster will add new module here
 
@@ -31,10 +32,11 @@ import {
         LayoutRoutingModule,
         Ng2Webstorage.forRoot({ prefix: 'jhi', separator: '-'}),
         HipsterSharedModule,
+        HipsterDashboardModule,
         HipsterHomeModule,
         HipsterAdminModule,
         HipsterAccountModule,
-        HipsterEntityModule,
+        HipsterEntityModule
         // jhipster-needle-angular-add-module JHipster will add new module here
     ],
     declarations: [
