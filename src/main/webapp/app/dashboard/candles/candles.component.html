@@ -1,12 +1,12 @@
 <div>
     <h2>
-        <span>Application Dashboard</span>
+        <span>Candles Dashboard</span>
         <button class="btn btn-primary float-right" (click)="refresh()">
             <span class="fa fa-refresh"></span> <span>Refresh</span>
         </button>
     </h2>
 
-    <h3>JVM Metrics</h3>
+    <h3>Database Metrics</h3>
     <div class="row" *ngIf="!updatingMetrics">
         <div class="col-md-4">
             <b>Memory</b>
@@ -64,83 +64,34 @@
     </div>
     <div class="well well-lg" *ngIf="updatingMetrics">Updating...</div>
 
-    <h3>HTTP requests (events per second)</h3>
-    <p *ngIf="metrics.counters">
-        <span>Active requests</span> <b>{{metrics.counters['com.codahale.metrics.servlet.InstrumentedFilter.activeRequests'].count | number:'1.0-0'}}</b> - <span>Total requests</span> <b>{{metrics.timers['com.codahale.metrics.servlet.InstrumentedFilter.requests'].count | number:'1.0-0'}}</b>
-    </p>
+    <h3>Data (granularity)</h3>
     <div class="table-responsive" *ngIf="!updatingMetrics">
         <table class="table table-striped">
             <thead>
             <tr>
                 <th>Code</th>
                 <th>Count</th>
-                <th class="text-right">Mean</th>
-                <th class="text-right"><span>Average</span> (1 min)</th>
-                <th class="text-right"><span>Average</span> (5 min)</th>
-                <th class="text-right"><span>Average</span> (15 min)</th>
+                <th class="text-right">Candles</th>
+                <th class="text-right"><span>First</span> (earliest)</th>
+                <th class="text-right"><span>Last</span> (latest)</th>
             </tr>
             </thead>
             <tbody>
-            <tr>
-                <td>OK</td>
-                <td>
-                    <ngb-progressbar [max]="metrics.timers['com.codahale.metrics.servlet.InstrumentedFilter.requests'].count" [value]="metrics.meters['com.codahale.metrics.servlet.InstrumentedFilter.responseCodes.ok'].count" [striped]="true" [animated]="false" type="success">
-                        <span>{{metrics.meters['com.codahale.metrics.servlet.InstrumentedFilter.responseCodes.ok'].count}}</span>
-                    </ngb-progressbar>
-                </td>
-                <td class="text-right">
-                    {{filterNaN(metrics.meters['com.codahale.metrics.servlet.InstrumentedFilter.responseCodes.ok'].mean_rate) | number:'1.0-2'}}
-                </td>
-                <td class="text-right">
-                    {{filterNaN(metrics.meters['com.codahale.metrics.servlet.InstrumentedFilter.responseCodes.ok'].m1_rate) | number:'1.0-2'}}
-                </td>
-                <td class="text-right">
-                    {{filterNaN(metrics.meters['com.codahale.metrics.servlet.InstrumentedFilter.responseCodes.ok'].m5_rate) | number:'1.0-2'}}
-                </td>
-                <td class="text-right">
-                    {{filterNaN(metrics.meters['com.codahale.metrics.servlet.InstrumentedFilter.responseCodes.ok'].m15_rate) | number:'1.0-2'}}
-                </td>
-            </tr>
-            <tr>
-                <td>Not Found</td>
-                <td>
-                    <ngb-progressbar [max]="metrics.timers['com.codahale.metrics.servlet.InstrumentedFilter.requests'].count" [value]="metrics.meters['com.codahale.metrics.servlet.InstrumentedFilter.responseCodes.notFound'].count" [striped]="true" [animated]="false" type="success">
-                        <span>{{metrics.meters['com.codahale.metrics.servlet.InstrumentedFilter.responseCodes.notFound'].count}}</span>
-                    </ngb-progressbar>
-                </td>
-                <td class="text-right">
-                    {{filterNaN(metrics.meters['com.codahale.metrics.servlet.InstrumentedFilter.responseCodes.notFound'].mean_rate) | number:'1.0-2'}}
-                </td>
-                <td class="text-right">
-                    {{filterNaN(metrics.meters['com.codahale.metrics.servlet.InstrumentedFilter.responseCodes.notFound'].m1_rate) | number:'1.0-2'}}
-                </td>
-                <td class="text-right">
-                    {{filterNaN(metrics.meters['com.codahale.metrics.servlet.InstrumentedFilter.responseCodes.notFound'].m5_rate) | number:'1.0-2'}}
-                </td>
-                <td class="text-right">
-                    {{filterNaN(metrics.meters['com.codahale.metrics.servlet.InstrumentedFilter.responseCodes.notFound'].m15_rate) | number:'1.0-2'}}
-                </td>
-            </tr>
-            <tr>
-                <td>Server error</td>
-                <td>
-                    <ngb-progressbar [max]="metrics.timers['com.codahale.metrics.servlet.InstrumentedFilter.requests'].count" [value]="metrics.meters['com.codahale.metrics.servlet.InstrumentedFilter.responseCodes.serverError'].count" [striped]="true" [animated]="false" type="success">
-                        <span>{{metrics.meters['com.codahale.metrics.servlet.InstrumentedFilter.responseCodes.serverError'].count}}</span>
-                    </ngb-progressbar>
-                </td>
-                <td class="text-right">
-                    {{filterNaN(metrics.meters['com.codahale.metrics.servlet.InstrumentedFilter.responseCodes.serverError'].mean_rate) | number:'1.0-2'}}
-                </td>
-                <td class="text-right">
-                    {{filterNaN(metrics.meters['com.codahale.metrics.servlet.InstrumentedFilter.responseCodes.serverError'].m1_rate) | number:'1.0-2'}}
-                </td>
-                <td class="text-right">
-                    {{filterNaN(metrics.meters['com.codahale.metrics.servlet.InstrumentedFilter.responseCodes.serverError'].m5_rate) | number:'1.0-2'}}
-                </td>
-                <td class="text-right">
-                    {{filterNaN(metrics.meters['com.codahale.metrics.servlet.InstrumentedFilter.responseCodes.serverError'].m15_rate) | number:'1.0-2'}}
-                </td>
-            </tr>
+                <tr *ngFor="let entry of granularityStats | keys">
+                    <td>{{entry.key}}</td>
+                    <td>
+                        <ngb-progressbar [max]="metrics.timers['com.codahale.metrics.servlet.InstrumentedFilter.requests'].count" [value]="metrics.meters['com.codahale.metrics.servlet.InstrumentedFilter.responseCodes.ok'].count" [striped]="true" [animated]="false" type="success">
+                            <span>{{entry.value.count}}</span>
+                        </ngb-progressbar>
+                    </td>
+                    <td>
+                        <ngb-progressbar [max]="metrics.timers['com.codahale.metrics.servlet.InstrumentedFilter.requests'].count" [value]="metrics.meters['com.codahale.metrics.servlet.InstrumentedFilter.responseCodes.ok'].count" [striped]="true" [animated]="false" type="success">
+                            <span>{{entry.value.mean * 1000 | number:'1.0-0'}}</span>
+                        </ngb-progressbar>
+                    </td>
+                    <td class="text-right">{{entry.value.min * 1000 | number:'1.0-0'}}</td>
+                    <td class="text-right">{{entry.value.p50 * 1000 | number:'1.0-0'}}</td>
+                </tr>
             </tbody>
         </table>
     </div>

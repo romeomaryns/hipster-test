@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 import { CandlesService } from './candles.service';
+import { CandleStickGranularity } from '../../entities/candle-stick/index';
 
 @Component({
     selector: 'jhi-candles',
@@ -11,6 +12,7 @@ export class CandlesComponent implements OnInit {
     metrics: any = {};
     cachesStats: any = {};
     servicesStats: any = {};
+    granularityStats: any = {};
     updatingMetrics = true;
     JCACHE_KEY: string;
 
@@ -31,12 +33,17 @@ export class CandlesComponent implements OnInit {
             this.metrics = metrics;
             this.updatingMetrics = false;
             this.servicesStats = {};
+            this.granularityStats = {};
             this.cachesStats = {};
             Object.keys(metrics.timers).forEach((key) => {
                 const value = metrics.timers[key];
                 if (key.indexOf('web.rest') !== -1 || key.indexOf('service') !== -1) {
                     this.servicesStats[key] = value;
                 }
+            });
+            Object.keys(metrics.granularities).forEach((key) => {
+                const value = metrics.granularities[key];
+                    this.granularityStats[key] = value;
             });
             Object.keys(metrics.gauges).forEach((key) => {
                 if (key.indexOf('jcache.statistics') !== -1) {
