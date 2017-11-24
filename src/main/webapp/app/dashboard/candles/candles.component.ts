@@ -12,6 +12,7 @@ export class CandlesComponent implements OnInit {
     metrics: any = {};
     cachesStats: any = {};
     servicesStats: any = {};
+    granularities: Set<any>;
     granularityStats: any = {};
     updatingMetrics = true;
     JCACHE_KEY: string;
@@ -21,6 +22,7 @@ export class CandlesComponent implements OnInit {
         private candlesService: CandlesService
     ) {
         this.JCACHE_KEY = 'jcache.statistics';
+      //  console.log(this.granularities);
     }
 
     ngOnInit() {
@@ -33,17 +35,12 @@ export class CandlesComponent implements OnInit {
             this.metrics = metrics;
             this.updatingMetrics = false;
             this.servicesStats = {};
-            this.granularityStats = {};
             this.cachesStats = {};
             Object.keys(metrics.timers).forEach((key) => {
                 const value = metrics.timers[key];
                 if (key.indexOf('web.rest') !== -1 || key.indexOf('service') !== -1) {
                     this.servicesStats[key] = value;
                 }
-            });
-            Object.keys(metrics.granularities).forEach((key) => {
-                const value = metrics.granularities[key];
-                    this.granularityStats[key] = value;
             });
             Object.keys(metrics.gauges).forEach((key) => {
                 if (key.indexOf('jcache.statistics') !== -1) {
@@ -60,6 +57,9 @@ export class CandlesComponent implements OnInit {
                 }
             });
         });
+        this.granularities = this.candlesService.getGranularities();
+        this.granularityStats = this.candlesService.getGranularityStats();
+        console.log(this.granularityStats);
     }
 
     refreshThreadDumpData() {

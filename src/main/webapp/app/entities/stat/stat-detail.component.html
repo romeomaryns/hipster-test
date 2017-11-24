@@ -1,0 +1,53 @@
+
+<div *ngIf="stat">
+    <h2><span>Stat</span> {{stat.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row-md jh-entity-details">
+        <dt><span>Last Updated</span></dt>
+        <dd>
+            <span>{{stat.lastUpdated | date:'medium'}}</span>
+        </dd>
+        <dt><span>Granularity</span></dt>
+        <dd>
+            <span>{{stat.granularity}}</span>
+        </dd>
+        <dt><span>Number Of Candles</span></dt>
+        <dd>
+            <span>{{stat.numberOfCandles}}</span>
+        </dd>
+        <dt><span>First</span></dt>
+        <dd>
+            <span>{{stat.first | date:'medium'}}</span>
+        </dd>
+        <dt><span>Last</span></dt>
+        <dd>
+            <span>{{stat.last | date:'medium'}}</span>
+        </dd>
+        <dt><span>Instrument</span></dt>
+        <dd>
+            <div *ngIf="stat.instrument">
+                <a [routerLink]="['/instrument', stat.instrument?.id]">{{stat.instrument?.id}}</a>
+            </div>
+        </dd>
+        <dt><span>Instrument</span></dt>
+        <dd>
+            <div *ngIf="stat.instrument">
+                <a [routerLink]="['/instrument', stat.instrument?.id]">{{stat.instrument?.id}}</a>
+            </div>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            (click)="previousState()"
+            class="btn btn-info">
+        <span class="fa fa-arrow-left"></span>&nbsp;<span> Back</span>
+    </button>
+
+    <button type="button"
+            [routerLink]="['/', { outlets: { popup: 'stat/'+ stat.id + '/edit'} }]"
+            replaceUrl="true"
+            class="btn btn-primary">
+        <span class="fa fa-pencil"></span>&nbsp;<span> Edit</span>
+    </button>
+</div>

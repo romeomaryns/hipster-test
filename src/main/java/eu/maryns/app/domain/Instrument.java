@@ -1,10 +1,13 @@
 package eu.maryns.app.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.Objects;
 
 /**
@@ -60,6 +63,11 @@ public class Instrument implements Serializable {
 
     @Column(name = "commission")
     private Double commission;
+
+    @OneToMany(mappedBy = "instrument")
+    @JsonIgnore
+    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+    private Set<Stat> stats = new HashSet<>();
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
@@ -237,6 +245,31 @@ public class Instrument implements Serializable {
 
     public void setCommission(Double commission) {
         this.commission = commission;
+    }
+
+    public Set<Stat> getStats() {
+        return stats;
+    }
+
+    public Instrument stats(Set<Stat> stats) {
+        this.stats = stats;
+        return this;
+    }
+
+    public Instrument addStats(Stat stat) {
+        this.stats.add(stat);
+        stat.setInstrument(this);
+        return this;
+    }
+
+    public Instrument removeStats(Stat stat) {
+        this.stats.remove(stat);
+        stat.setInstrument(null);
+        return this;
+    }
+
+    public void setStats(Set<Stat> stats) {
+        this.stats = stats;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 

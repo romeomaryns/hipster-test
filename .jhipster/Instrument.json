@@ -1,6 +1,13 @@
 {
     "fluentMethods": true,
-    "relationships": [],
+    "relationships": [
+        {
+            "relationshipType": "one-to-many",
+            "relationshipName": "stats",
+            "otherEntityName": "stat",
+            "otherEntityRelationshipName": "instrument"
+        }
+    ],
     "fields": [
         {
             "fieldName": "name",

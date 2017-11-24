@@ -16,6 +16,7 @@ export class Instrument implements BaseEntity {
         public maximumOrderUnits?: number,
         public marginRate?: number,
         public commission?: number,
+        public stats?: BaseEntity[],
     ) {
     }
 }

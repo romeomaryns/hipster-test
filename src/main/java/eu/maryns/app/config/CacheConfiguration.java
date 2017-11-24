@@ -48,6 +48,8 @@ public class CacheConfiguration {
             cm.createCache(eu.maryns.app.domain.Instrument.class.getName(), jcacheConfiguration);
             cm.createCache(eu.maryns.app.domain.CandleStick.class.getName(), jcacheConfiguration);
             cm.createCache(eu.maryns.app.domain.CandleStickData.class.getName(), jcacheConfiguration);
+            cm.createCache(eu.maryns.app.domain.Stat.class.getName(), jcacheConfiguration);
+            cm.createCache(eu.maryns.app.domain.Instrument.class.getName() + ".stats", jcacheConfiguration);
             // jhipster-needle-ehcache-add-entry
         };
     }

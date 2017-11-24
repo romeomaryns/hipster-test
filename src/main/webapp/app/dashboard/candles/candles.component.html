@@ -71,26 +71,22 @@
             <tr>
                 <th>Code</th>
                 <th>Count</th>
-                <th class="text-right">Candles</th>
-                <th class="text-right"><span>First</span> (earliest)</th>
-                <th class="text-right"><span>Last</span> (latest)</th>
+                <th class="text-right">Instruments</th>
+                <th class="text-right"><span>TimeSpan</span> </th>
             </tr>
             </thead>
             <tbody>
-                <tr *ngFor="let entry of granularityStats | keys">
-                    <td>{{entry.key}}</td>
+                <tr *ngFor="let entry of granularityStats ">
+                    <td>{{entry.granularity}}</td>
                     <td>
-                        <ngb-progressbar [max]="metrics.timers['com.codahale.metrics.servlet.InstrumentedFilter.requests'].count" [value]="metrics.meters['com.codahale.metrics.servlet.InstrumentedFilter.responseCodes.ok'].count" [striped]="true" [animated]="false" type="success">
-                            <span>{{entry.value.count}}</span>
+                        <ngb-progressbar [max]="100" [value]="10" [striped]="true" [animated]="true" type="success">
+                            <span>25</span>
                         </ngb-progressbar>
                     </td>
                     <td>
-                        <ngb-progressbar [max]="metrics.timers['com.codahale.metrics.servlet.InstrumentedFilter.requests'].count" [value]="metrics.meters['com.codahale.metrics.servlet.InstrumentedFilter.responseCodes.ok'].count" [striped]="true" [animated]="false" type="success">
-                            <span>{{entry.value.mean * 1000 | number:'1.0-0'}}</span>
-                        </ngb-progressbar>
+                        {{entry.Instrument}}
                     </td>
-                    <td class="text-right">{{entry.value.min * 1000 | number:'1.0-0'}}</td>
-                    <td class="text-right">{{entry.value.p50 * 1000 | number:'1.0-0'}}</td>
+                    <td class="text-right">{{entry.first}}-{{entry.last}}</td>
                 </tr>
             </tbody>
         </table>

@@ -11,6 +11,7 @@ import com.oanda.v20.primitives.InstrumentName;
 import eu.maryns.app.domain.CandleStick;
 import eu.maryns.app.domain.Instrument;
 import eu.maryns.app.domain.OandaAccount;
+import eu.maryns.app.domain.Stat;
 import eu.maryns.app.service.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -40,6 +41,8 @@ public class CommandControllerResource {
     private IInstrumentService instrumentService;
     @Autowired
     private ICandleService candleService;
+    @Autowired
+    private IStatService statService;
 
     Context ctx = new Context(Config.URL, Config.TOKEN);
     AccountID accountId = Config.ACCOUNTID;
@@ -127,6 +130,25 @@ public class CommandControllerResource {
 
         return candleSticks;
     }
+
+
+
+    /**
+     * GET loadInstruments
+     */
+    @GetMapping("/refresh-stats")
+    public List<Stat> refreshStats() {
+        return statService.loadAll();
+    }
+
+    /**
+     * GET loadInstruments
+     */
+    @GetMapping("/recalculate-stats")
+    public List<Stat> recalculateStats() {
+        return statService.recalculateAll();
+    }
+
 
 
 
