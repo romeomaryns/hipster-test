@@ -1,9 +1,10 @@
 package eu.maryns.app.service;
 
 import eu.maryns.app.domain.CandleStick;
+import eu.maryns.app.domain.CandleStickGranularity;
 import eu.maryns.app.domain.Instrument;
 import eu.maryns.app.domain.Stat;
-import eu.maryns.app.domain.enumeration.CandleStickGranularity;
+import eu.maryns.app.repository.CandleStickGranularityRepository;
 import eu.maryns.app.repository.CandleStickRepository;
 import eu.maryns.app.repository.InstrumentRepository;
 import eu.maryns.app.repository.StatRepository;
@@ -32,6 +33,9 @@ public class StatService implements IStatService{
     @Autowired
     private CandleStickRepository candlestickRepository;
 
+    @Autowired
+    private CandleStickGranularityRepository candlestickGranularityRepository;
+
     @Override
     public List<Stat> loadAll() {
         List<Stat> stats = new ArrayList<Stat>();
@@ -52,7 +56,7 @@ public class StatService implements IStatService{
         stats = statRepository.findAll();
             for (Instrument instrument : instrumentRepository.findAll())
             {
-                for(CandleStickGranularity granularity : CandleStickGranularity.values()) {
+                for(CandleStickGranularity granularity : candlestickGranularityRepository.findAll()) {
                     Stat stat = new Stat();
                     List<Stat> temp = statRepository.findAllByInstrumentAndGranularity(instrument,granularity);
                     if(!temp.isEmpty())
@@ -80,7 +84,9 @@ public class StatService implements IStatService{
                     stat.setNumberOfCandles(count);
                     stat.setFirst(first);
                     stat.setLast(last);
-                    stats.add(stat);
+                    if(count >0) {
+                        stats.add(stat);
+                    }
                 }
             }
         statRepository.save(stats);

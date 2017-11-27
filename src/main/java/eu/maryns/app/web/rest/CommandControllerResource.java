@@ -8,10 +8,7 @@ import com.oanda.v20.instrument.InstrumentCandlesRequest;
 import com.oanda.v20.instrument.InstrumentCandlesResponse;
 import com.oanda.v20.primitives.DateTime;
 import com.oanda.v20.primitives.InstrumentName;
-import eu.maryns.app.domain.CandleStick;
-import eu.maryns.app.domain.Instrument;
-import eu.maryns.app.domain.OandaAccount;
-import eu.maryns.app.domain.Stat;
+import eu.maryns.app.domain.*;
 import eu.maryns.app.service.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -43,10 +40,69 @@ public class CommandControllerResource {
     private ICandleService candleService;
     @Autowired
     private IStatService statService;
+    @Autowired
+    private IGranularityService granularityService;
 
     Context ctx = new Context(Config.URL, Config.TOKEN);
     AccountID accountId = Config.ACCOUNTID;
 
+
+
+    /**
+     * GET loadAccounts
+     */
+    @GetMapping("/setup")
+    public List<Object> setup() {
+        List<Object> response = new ArrayList<>();
+        try
+        {
+            String[] granularities = {"S5","S10","S15","S30","M1","M2","M4","M5","M10","M15","M30","H1","H2","H3","H4","H6","H8","H12","D","W","M"};
+            for(int i = 0 ; i < granularities.length ; i++)
+            {
+                CandleStickGranularity granularity = new CandleStickGranularity();
+                granularity.setName(granularities[i]);
+                response.add(granularityService.save(granularity));
+            }
+        }
+        catch (Exception e)
+        {
+            response.add("Failed to load Granularities : " + e);
+        }
+        try
+        {
+            response.addAll(loadAccounts());
+        }
+        catch(Exception e)
+        {
+            response.add("Failed to load accounts : " + e);
+        }
+        try
+        {
+            response.addAll(loadInstruments());
+        }
+        catch(Exception e)
+        {
+            response.add("Failed to load instruments : " + e);
+        }
+        try
+        {
+            response.addAll(loadCandleSticks("EUR_USD"));
+            response.addAll(loadCandleSticks("USD_JPY"));
+        }
+        catch(Exception e)
+        {
+            response.add("Failed to load candles : " + e);
+        }
+        try
+        {
+            response.addAll(recalculateStats());
+        }
+        catch(Exception e)
+        {
+            response.add("Failed to calculateStats : " + e);
+        }
+        return response;
+    }
 
     /**
      * GET loadAccounts

@@ -8,8 +8,6 @@ import java.io.Serializable;
 import java.time.Instant;
 import java.util.Objects;
 
-import eu.maryns.app.domain.enumeration.CandleStickGranularity;
-
 /**
  * A Stat.
  */
@@ -28,10 +26,6 @@ public class Stat implements Serializable {
     @Column(name = "last_updated")
     private Instant lastUpdated;
 
-    @Enumerated(EnumType.STRING)
-    @Column(name = "granularity")
-    private CandleStickGranularity granularity;
-
     @Column(name = "number_of_candles")
     private Integer numberOfCandles;
 
@@ -41,9 +35,13 @@ public class Stat implements Serializable {
     @Column(name = "last")
     private Instant last;
 
-
     @ManyToOne
     private Instrument instrument;
+
+    @OneToOne
+    @JoinColumn(unique = true)
+    private CandleStickGranularity granularity;
+
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
@@ -65,19 +63,6 @@ public class Stat implements Serializable {
 
     public void setLastUpdated(Instant lastUpdated) {
         this.lastUpdated = lastUpdated;
-    }
-
-    public CandleStickGranularity getGranularity() {
-        return granularity;
-    }
-
-    public Stat granularity(CandleStickGranularity granularity) {
-        this.granularity = granularity;
-        return this;
-    }
-
-    public void setGranularity(CandleStickGranularity granularity) {
-        this.granularity = granularity;
     }
 
     public Integer getNumberOfCandles() {
@@ -119,6 +104,19 @@ public class Stat implements Serializable {
         this.last = last;
     }
 
+    public CandleStickGranularity getGranularity() {
+        return granularity;
+    }
+
+    public Stat granularity(CandleStickGranularity candleStickGranularity) {
+        this.granularity = candleStickGranularity;
+        return this;
+    }
+
+    public void setGranularity(CandleStickGranularity candleStickGranularity) {
+        this.granularity = candleStickGranularity;
+    }
+
     public Instrument getInstrument() {
         return instrument;
     }
@@ -158,7 +156,6 @@ public class Stat implements Serializable {
         return "Stat{" +
             "id=" + getId() +
             ", lastUpdated='" + getLastUpdated() + "'" +
-            ", granularity='" + getGranularity() + "'" +
             ", numberOfCandles='" + getNumberOfCandles() + "'" +
             ", first='" + getFirst() + "'" +
             ", last='" + getLast() + "'" +

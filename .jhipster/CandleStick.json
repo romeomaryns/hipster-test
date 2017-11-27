@@ -10,6 +10,14 @@
             "otherEntityRelationshipName": "candleStick"
         },
         {
+            "relationshipType": "one-to-one",
+            "relationshipName": "granularity",
+            "otherEntityName": "candleStickGranularity",
+            "otherEntityField": "id",
+            "ownerSide": true,
+            "otherEntityRelationshipName": "candleStick"
+        },
+        {
             "relationshipType": "many-to-one",
             "relationshipName": "instrument",
             "otherEntityName": "instrument",
@@ -28,11 +36,6 @@
         {
             "fieldName": "complete",
             "fieldType": "Boolean"
-        },
-        {
-            "fieldName": "granularity",
-            "fieldType": "CandleStickGranularity",
-            "fieldValues": "S5,S10,S15,S30,M1,M2,M4,M5,M10,M15,M30,H1,H2,H3,H4,H6,H8,H12,D,W,M"
         }
     ],
     "changelogDate": "20171111123132",

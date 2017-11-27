@@ -14,6 +14,12 @@
                                  referencedColumnNames="id"
                                  referencedTableName="candle_stick_data"/>
 
+        <addForeignKeyConstraint baseColumnNames="granularity_id"
+                                 baseTableName="candle_stick"
+                                 constraintName="fk_candle_stick_granularity_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="candle_stick_granularity"/>
+
         <addForeignKeyConstraint baseColumnNames="instrument_id"
                                  baseTableName="candle_stick"
                                  constraintName="fk_candle_stick_instrument_id"

@@ -8,10 +8,6 @@
         <dd>
             <span>{{stat.lastUpdated | date:'medium'}}</span>
         </dd>
-        <dt><span>Granularity</span></dt>
-        <dd>
-            <span>{{stat.granularity}}</span>
-        </dd>
         <dt><span>Number Of Candles</span></dt>
         <dd>
             <span>{{stat.numberOfCandles}}</span>
@@ -28,6 +24,12 @@
         <dd>
             <div *ngIf="stat.instrument">
                 <a [routerLink]="['/instrument', stat.instrument?.id]">{{stat.instrument?.id}}</a>
+            </div>
+        </dd>
+        <dt><span>Granularity</span></dt>
+        <dd>
+            <div *ngIf="stat.granularity">
+                <a [routerLink]="['/candle-stick-granularity', stat.granularity?.id]">{{stat.granularity?.id}}</a>
             </div>
         </dd>
         <dt><span>Instrument</span></dt>

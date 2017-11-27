@@ -18,11 +18,11 @@
             <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="reset.bind(this)">
             <th jhiSortBy="id"><span>ID</span> <span class="fa fa-sort"></span></th>
             <th jhiSortBy="lastUpdated"><span>Last Updated</span> <span class="fa fa-sort"></span></th>
-            <th jhiSortBy="granularity"><span>Granularity</span> <span class="fa fa-sort"></span></th>
             <th jhiSortBy="numberOfCandles"><span>Number Of Candles</span> <span class="fa fa-sort"></span></th>
             <th jhiSortBy="first"><span>First</span> <span class="fa fa-sort"></span></th>
             <th jhiSortBy="last"><span>Last</span> <span class="fa fa-sort"></span></th>
             <th jhiSortBy="instrument.id"><span>Instrument</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="granularity.id"><span>Granularity</span> <span class="fa fa-sort"></span></th>
             <th jhiSortBy="instrument.id"><span>Instrument</span> <span class="fa fa-sort"></span></th>
             <th></th>
             </tr>
@@ -31,13 +31,17 @@
             <tr *ngFor="let stat of stats ;trackBy: trackId">
                 <td><a [routerLink]="['../stat', stat.id ]">{{stat.id}}</a></td>
                 <td>{{stat.lastUpdated | date:'medium'}}</td>
-                <td>{{stat.granularity}}</td>
                 <td>{{stat.numberOfCandles}}</td>
                 <td>{{stat.first | date:'medium'}}</td>
                 <td>{{stat.last | date:'medium'}}</td>
                 <td>
                     <div *ngIf="stat.instrument">
                         <a [routerLink]="['../instrument', stat.instrument?.id ]" >{{stat.instrument?.id}}</a>
+                    </div>
+                </td>
+                <td>
+                    <div *ngIf="stat.granularity">
+                        <a [routerLink]="['../candle-stick-granularity', stat.granularity?.id ]" >{{stat.granularity?.id}}</a>
                     </div>
                 </td>
                 <td>

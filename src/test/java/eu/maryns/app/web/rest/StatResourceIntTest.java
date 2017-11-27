@@ -31,7 +31,6 @@ import static org.hamcrest.Matchers.hasItem;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-import eu.maryns.app.domain.enumeration.CandleStickGranularity;
 /**
  * Test class for the StatResource REST controller.
  *
@@ -43,9 +42,6 @@ public class StatResourceIntTest {
 
     private static final Instant DEFAULT_LAST_UPDATED = Instant.ofEpochMilli(0L);
     private static final Instant UPDATED_LAST_UPDATED = Instant.now().truncatedTo(ChronoUnit.MILLIS);
-
-    private static final CandleStickGranularity DEFAULT_GRANULARITY = CandleStickGranularity.S5;
-    private static final CandleStickGranularity UPDATED_GRANULARITY = CandleStickGranularity.S10;
 
     private static final Integer DEFAULT_NUMBER_OF_CANDLES = 1;
     private static final Integer UPDATED_NUMBER_OF_CANDLES = 2;
@@ -95,7 +91,6 @@ public class StatResourceIntTest {
     public static Stat createEntity(EntityManager em) {
         Stat stat = new Stat()
             .lastUpdated(DEFAULT_LAST_UPDATED)
-            .granularity(DEFAULT_GRANULARITY)
             .numberOfCandles(DEFAULT_NUMBER_OF_CANDLES)
             .first(DEFAULT_FIRST)
             .last(DEFAULT_LAST);
@@ -123,7 +118,6 @@ public class StatResourceIntTest {
         assertThat(statList).hasSize(databaseSizeBeforeCreate + 1);
         Stat testStat = statList.get(statList.size() - 1);
         assertThat(testStat.getLastUpdated()).isEqualTo(DEFAULT_LAST_UPDATED);
-        assertThat(testStat.getGranularity()).isEqualTo(DEFAULT_GRANULARITY);
         assertThat(testStat.getNumberOfCandles()).isEqualTo(DEFAULT_NUMBER_OF_CANDLES);
         assertThat(testStat.getFirst()).isEqualTo(DEFAULT_FIRST);
         assertThat(testStat.getLast()).isEqualTo(DEFAULT_LAST);
@@ -160,7 +154,6 @@ public class StatResourceIntTest {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(stat.getId().intValue())))
             .andExpect(jsonPath("$.[*].lastUpdated").value(hasItem(DEFAULT_LAST_UPDATED.toString())))
-            .andExpect(jsonPath("$.[*].granularity").value(hasItem(DEFAULT_GRANULARITY.toString())))
             .andExpect(jsonPath("$.[*].numberOfCandles").value(hasItem(DEFAULT_NUMBER_OF_CANDLES)))
             .andExpect(jsonPath("$.[*].first").value(hasItem(DEFAULT_FIRST.toString())))
             .andExpect(jsonPath("$.[*].last").value(hasItem(DEFAULT_LAST.toString())));
@@ -178,7 +171,6 @@ public class StatResourceIntTest {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.id").value(stat.getId().intValue()))
             .andExpect(jsonPath("$.lastUpdated").value(DEFAULT_LAST_UPDATED.toString()))
-            .andExpect(jsonPath("$.granularity").value(DEFAULT_GRANULARITY.toString()))
             .andExpect(jsonPath("$.numberOfCandles").value(DEFAULT_NUMBER_OF_CANDLES))
             .andExpect(jsonPath("$.first").value(DEFAULT_FIRST.toString()))
             .andExpect(jsonPath("$.last").value(DEFAULT_LAST.toString()));
@@ -203,7 +195,6 @@ public class StatResourceIntTest {
         Stat updatedStat = statRepository.findOne(stat.getId());
         updatedStat
             .lastUpdated(UPDATED_LAST_UPDATED)
-            .granularity(UPDATED_GRANULARITY)
             .numberOfCandles(UPDATED_NUMBER_OF_CANDLES)
             .first(UPDATED_FIRST)
             .last(UPDATED_LAST);
@@ -218,7 +209,6 @@ public class StatResourceIntTest {
         assertThat(statList).hasSize(databaseSizeBeforeUpdate);
         Stat testStat = statList.get(statList.size() - 1);
         assertThat(testStat.getLastUpdated()).isEqualTo(UPDATED_LAST_UPDATED);
-        assertThat(testStat.getGranularity()).isEqualTo(UPDATED_GRANULARITY);
         assertThat(testStat.getNumberOfCandles()).isEqualTo(UPDATED_NUMBER_OF_CANDLES);
         assertThat(testStat.getFirst()).isEqualTo(UPDATED_FIRST);
         assertThat(testStat.getLast()).isEqualTo(UPDATED_LAST);

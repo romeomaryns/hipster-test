@@ -16,14 +16,16 @@
         <dd>
             <span>{{candleStick.complete}}</span>
         </dd>
-        <dt><span>Granularity</span></dt>
-        <dd>
-            <span>{{candleStick.granularity}}</span>
-        </dd>
         <dt><span>Mid</span></dt>
         <dd>
             <div *ngIf="candleStick.mid">
                 <a [routerLink]="['/candle-stick-data', candleStick.mid?.id]">{{candleStick.mid?.id}}</a>
+            </div>
+        </dd>
+        <dt><span>Granularity</span></dt>
+        <dd>
+            <div *ngIf="candleStick.granularity">
+                <a [routerLink]="['/candle-stick-granularity', candleStick.granularity?.id]">{{candleStick.granularity?.id}}</a>
             </div>
         </dd>
         <dt><span>Instrument</span></dt>

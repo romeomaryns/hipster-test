@@ -20,8 +20,8 @@
             <th jhiSortBy="time"><span>Time</span> <span class="fa fa-sort"></span></th>
             <th jhiSortBy="volume"><span>Volume</span> <span class="fa fa-sort"></span></th>
             <th jhiSortBy="complete"><span>Complete</span> <span class="fa fa-sort"></span></th>
-            <th jhiSortBy="granularity"><span>Granularity</span> <span class="fa fa-sort"></span></th>
             <th jhiSortBy="mid.id"><span>Mid</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="granularity.id"><span>Granularity</span> <span class="fa fa-sort"></span></th>
             <th jhiSortBy="instrument.id"><span>Instrument</span> <span class="fa fa-sort"></span></th>
             <th></th>
             </tr>
@@ -32,10 +32,14 @@
                 <td>{{candleStick.time | date:'medium'}}</td>
                 <td>{{candleStick.volume}}</td>
                 <td>{{candleStick.complete}}</td>
-                <td>{{candleStick.granularity}}</td>
                 <td>
                     <div *ngIf="candleStick.mid">
                         <a [routerLink]="['../candle-stick-data', candleStick.mid?.id ]" >{{candleStick.mid?.id}}</a>
+                    </div>
+                </td>
+                <td>
+                    <div *ngIf="candleStick.granularity">
+                        <a [routerLink]="['../candle-stick-granularity', candleStick.granularity?.id ]" >{{candleStick.granularity?.id}}</a>
                     </div>
                 </td>
                 <td>

@@ -71,35 +71,15 @@ enum InstrumentType{
     METAL
 }
 
-enum CandleStickGranularity{
-    S5,
-    S10,
-    S15,
-    S30,
-    M1,
-    M2,
-    M4,
-    M5,
-    M10,
-    M15,
-    M30,
-    H1,
-    H2,
-    H3,
-    H4,
-    H6,
-    H8,
-    H12,
-    D,
-    W,
-    M
+entity CandleStickGranularity{
+   name String
+
 }
 
 entity CandleStick{
 	time Instant
     volume Integer
     complete Boolean
-    granularity CandleStickGranularity
 }
 
 entity CandleStickData{
@@ -112,7 +92,6 @@ entity CandleStickData{
 
 entity Stat{
 	lastUpdated Instant
-    granularity CandleStickGranularity
     numberOfCandles Integer
     first	Instant
     last 	Instant
@@ -122,7 +101,9 @@ entity Stat{
 relationship OneToOne {
 	Position{longValue} to PositionSide,
     Position{shortValue} to PositionSide,
-    CandleStick{mid} to CandleStickData
+    CandleStick{mid} to CandleStickData,
+    CandleStick{granularity} to CandleStickGranularity,
+    Stat{granularity} to CandleStickGranularity
 }
 // defining multiple OneToMany relationships with comments
 relationship OneToMany {

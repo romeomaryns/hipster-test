@@ -7,6 +7,7 @@ import { HipsterInstrumentModule } from './instrument/instrument.module';
 import { HipsterCandleStickModule } from './candle-stick/candle-stick.module';
 import { HipsterCandleStickDataModule } from './candle-stick-data/candle-stick-data.module';
 import { HipsterStatModule } from './stat/stat.module';
+import { HipsterCandleStickGranularityModule } from './candle-stick-granularity/candle-stick-granularity.module';
 /* jhipster-needle-add-entity-module-import - JHipster will add entity modules imports here */
 
 @NgModule({
@@ -18,6 +19,7 @@ import { HipsterStatModule } from './stat/stat.module';
         HipsterCandleStickModule,
         HipsterCandleStickDataModule,
         HipsterStatModule,
+        HipsterCandleStickGranularityModule,
         /* jhipster-needle-add-entity-module - JHipster will add entity modules here */
     ],
     declarations: [],

@@ -69,134 +69,119 @@
         <table class="table table-striped">
             <thead>
             <tr>
-                <th>Code</th>
+                <th>Instrument</th>
                 <th>Count</th>
-                <th class="text-right">Instruments</th>
+                <th class="text-right">Granularities</th>
                 <th class="text-right"><span>TimeSpan</span> </th>
             </tr>
             </thead>
             <tbody>
-                <tr *ngFor="let entry of granularityStats ">
-                    <td>{{entry.granularity}}</td>
+                <tr *ngFor="let entry of granularityStats">
+                    <td>{{entry.instrument}}</td>
                     <td>
-                        <ngb-progressbar [max]="100" [value]="10" [striped]="true" [animated]="true" type="success">
-                            <span>25</span>
+                        <ngb-progressbar [max]="entry.count" [value]="entry.count" [striped]="true" [animated]="true" type="success">
+                            <span>{{entry.count}}</span>
                         </ngb-progressbar>
                     </td>
                     <td>
-                        {{entry.Instrument}}
+                        {{entry.code}}
                     </td>
-                    <td class="text-right">{{entry.first}}-{{entry.last}}</td>
+                    <td class="text-right">{{entry.timespan}}</td>
                 </tr>
             </tbody>
         </table>
     </div>
 
-    <h3>Services statistics (time in millisecond)</h3>
-    <div class="table-responsive" *ngIf="!updatingMetrics">
-        <table class="table table-striped">
-            <thead>
-            <tr>
-                <th>Service name</th>
-                <th class="text-right">Count</th>
-                <th class="text-right">Mean</th>
-                <th class="text-right">Min</th>
-                <th class="text-right">p50</th>
-                <th class="text-right">p75</th>
-                <th class="text-right">p95</th>
-                <th class="text-right">p99</th>
-                <th class="text-right">Max</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr *ngFor="let entry of servicesStats | keys">
-                <td>{{entry.key}}</td>
-                <td class="text-right">{{entry.value.count}}</td>
-                <td class="text-right">{{entry.value.mean * 1000 | number:'1.0-0'}}</td>
-                <td class="text-right">{{entry.value.min * 1000 | number:'1.0-0'}}</td>
-                <td class="text-right">{{entry.value.p50 * 1000 | number:'1.0-0'}}</td>
-                <td class="text-right">{{entry.value.p75 * 1000 | number:'1.0-0'}}</td>
-                <td class="text-right">{{entry.value.p95 * 1000 | number:'1.0-0'}}</td>
-                <td class="text-right">{{entry.value.p99 * 1000 | number:'1.0-0'}}</td>
-                <td class="text-right">{{entry.value.max * 1000 | number:'1.0-0'}}</td>
-            </tr>
-            </tbody>
-        </table>
-    </div>
-    
-    <h3>Cache statistics</h3>
-    <div class="table-responsive" *ngIf="!updatingMetrics">
-        <table class="table table-striped">
-            <thead>
-            <tr>
-                <th>Cache name</th>
-                <th class="text-right">Cache Hits</th>
-                <th class="text-right">Cache Misses</th>
-                <th class="text-right">Cache Gets</th>
-                <th class="text-right">Cache Puts</th>
-                <th class="text-right">Cache Removals</th>
-                <th class="text-right">Cache Evictions</th>
-                <th class="text-right">Cache Hit %</th>
-                <th class="text-right">Cache Miss %</th>
-                <th class="text-right">Average get time (µs)</th>
-                <th class="text-right">Average put time (µs)</th>
-                <th class="text-right">Average remove time (µs)</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr *ngFor="let entry of cachesStats | keys">
-                <td>{{entry.key}}</td>
-                <td class="text-right">{{metrics.gauges[entry.key + '.cache-hits'].value}}</td>
-                <td class="text-right">{{metrics.gauges[entry.key + '.cache-misses'].value}}</td>
-                <td class="text-right">{{metrics.gauges[entry.key + '.cache-gets'].value}}</td>
-                <td class="text-right">{{metrics.gauges[entry.key + '.cache-puts'].value}}</td>
-                <td class="text-right">{{metrics.gauges[entry.key + '.cache-removals'].value}}</td>
-                <td class="text-right">{{metrics.gauges[entry.key + '.cache-evictions'].value}}</td>
-                <td class="text-right">{{metrics.gauges[entry.key + '.cache-hit-percentage'].value}}</td>
-                <td class="text-right">{{metrics.gauges[entry.key + '.cache-miss-percentage'].value }}</td>
-                <td class="text-right">{{filterNaN(metrics.gauges[entry.key + '.average-get-time'].value)  | number : '1.2-2' }}</td>
-                <td class="text-right">{{filterNaN(metrics.gauges[entry.key + '.average-put-time'].value)  | number : '1.2-2'}}</td>
-                <td class="text-right">{{filterNaN(metrics.gauges[entry.key + '.average-remove-time'].value) | number : '1.2-2' }}</td>
-            </tr>
-            </tbody>
-        </table>
-    </div>
-    
-    <h3 *ngIf="metrics.gauges && metrics.gauges['HikariPool-1.pool.TotalConnections'] && metrics.gauges['HikariPool-1.pool.TotalConnections'].value > 0">DataSource statistics (time in millisecond)</h3>
-    <div class="table-responsive" *ngIf="!updatingMetrics && metrics.gauges && metrics.gauges['HikariPool-1.pool.TotalConnections'] && metrics.gauges['HikariPool-1.pool.TotalConnections'].value > 0">
-        <table class="table table-striped">
-            <thead>
-                <tr>
-                    <th><span>Usage</span> ({{metrics.gauges['HikariPool-1.pool.ActiveConnections'].value}} / {{metrics.gauges['HikariPool-1.pool.TotalConnections'].value}})</th>
-                    <th class="text-right">Count</th>
-                    <th class="text-right">Mean</th>
-                    <th class="text-right">Min</th>
-                    <th class="text-right">p50</th>
-                    <th class="text-right">p75</th>
-                    <th class="text-right">p95</th>
-                    <th class="text-right">p99</th>
-                    <th class="text-right">Max</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>
-                        <div class="progress progress-striped">
-                            <ngb-progressbar [max]="metrics.gauges['HikariPool-1.pool.TotalConnections'].value" [value]="metrics.gauges['HikariPool-1.pool.ActiveConnections'].value" [striped]="true" [animated]="false" type="success">
-                                <span>{{metrics.gauges['HikariPool-1.pool.ActiveConnections'].value * 100 / metrics.gauges['HikariPool-1.pool.TotalConnections'].value  | number:'1.0-0'}}%</span>
-                            </ngb-progressbar>
-                        </div>
-                    </td>
-                    <td class="text-right">{{metrics.histograms['HikariPool-1.pool.Usage'].count}}</td>
-                    <td class="text-right">{{filterNaN(metrics.histograms['HikariPool-1.pool.Usage'].mean) | number:'1.0-2'}}</td>
-                    <td class="text-right">{{filterNaN(metrics.histograms['HikariPool-1.pool.Usage'].min) | number:'1.0-2'}}</td>
-                    <td class="text-right">{{filterNaN(metrics.histograms['HikariPool-1.pool.Usage'].p50) | number:'1.0-2'}}</td>
-                    <td class="text-right">{{filterNaN(metrics.histograms['HikariPool-1.pool.Usage'].p75) | number:'1.0-2'}}</td>
-                    <td class="text-right">{{filterNaN(metrics.histograms['HikariPool-1.pool.Usage'].p95) | number:'1.0-2'}}</td>
-                    <td class="text-right">{{filterNaN(metrics.histograms['HikariPool-1.pool.Usage'].p99) | number:'1.0-2'}}</td>
-                    <td class="text-right">{{filterNaN(metrics.histograms['HikariPool-1.pool.Usage'].max) | number:'1.0-2'}}</td>
-                </tr>
-            </tbody>
-        </table>
+    <div class="row">
+            <ngb-accordion [closeOthers]="true" activeIds="static-1">
+                    <ngb-panel id="static-1">
+                    <ng-template ngbPanelTitle>
+                            <span>&#9733; <b>config</b> &#9733;</span>
+                    </ng-template>
+                      <ng-template ngbPanelContent>
+                          <div class="row">
+                            <form class="form-inline">
+                                    <div class="form-group">
+                                      <div class="input-group">
+                                        <input class="form-control" placeholder="yyyy-mm-dd"
+                                               name="dp" [(ngModel)]="from" ngbDatepicker #d="ngbDatepicker">
+                                        <button class="input-group-addon" (click)="d.toggle()" type="button">
+                                                <span class="fa fa-calendar"></span>
+                                        </button>
+                                      </div>
+                                    </div>
+                                  </form>
+                                <pre>From: {{ from | json }}</pre>
+                                <form class="form-inline">
+                                        <div class="form-group">
+                                          <div class="input-group">
+                                            <input class="form-control" placeholder="yyyy-mm-dd"
+                                                   name="dp2" [(ngModel)]="to" ngbDatepicker #d2="ngbDatepicker">
+                                            <button class="input-group-addon" (click)="d2.toggle()" type="button">
+                                                    <span class="fa fa-calendar"></span>
+                                            </button>
+                                          </div>
+                                        </div>
+                                      </form>
+                                        <pre>To: {{ to | json }}</pre>
+                                <div class="form-group">
+                                        <label class="form-control-label" for="field_instrument">Instrument</label>
+                                        <select class="form-control" id="field_instrument" name="instrument" [(ngModel)]="selectedInstrument" >
+                                            <option [ngValue]="null"></option>
+                                            <option [ngValue]="instrumentOption.id === selectedInstrument?.id ? selectedInstrument : instrumentOption" *ngFor="let instrumentOption of instruments; trackBy: trackInstrumentById">{{instrumentOption.displayName}}</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                            <label class="form-control-label" for="field_granularity">Granularity</label>
+                                            <select class="form-control" id="field_granularity" name="granularity" [(ngModel)]="selectedGranularity" >
+                                                <option [ngValue]="null"></option>
+                                                <option [ngValue]="granularityOption.id === selectedGranularity?.id ? selectedGranularity : granularityOption" *ngFor="let granularityOption of granularities; trackBy: trackGranularityById">{{granularityOption.name}}</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                      </ng-template>
+                    </ngb-panel>
+                    <ngb-panel id="static-2">
+                      <ng-template ngbPanelTitle>
+                        <span>&#9733; <b>Data</b> &#9733;</span>
+                      </ng-template>
+                      <ng-template ngbPanelContent>
+                            <button class="btn btn-primary float-right" (click)="generateChart()">
+                                    <span class="fa fa-gear"></span> <span>Generate</span>
+                                </button>
+                            <div class="table-responsive" *ngIf="!updatingMetrics">
+                                    <table class="table table-striped">
+                                        <thead>
+                                        <tr>
+                                            <th>Time</th>
+                                            <th>Value</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr *ngFor="let entry of chartEntries">
+                                                <td>{{entry.time}}</td>
+                                                <td>
+                                                    {{entry.value}}
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                      </ng-template>
+                    </ngb-panel>
+                    <ngb-panel id="static-3">
+                    <ng-template ngbPanelTitle>
+                            <span>&#9733; <b>Charting</b> &#9733;</span>
+                    </ng-template>
+                      <ng-template ngbPanelContent>
+                        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia
+                        aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor,
+                        sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica,
+                        craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings
+                        occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus
+                        labore sustainable VHS.
+                      </ng-template>
+                    </ngb-panel>
+                  </ngb-accordion>
     </div>
 </div>

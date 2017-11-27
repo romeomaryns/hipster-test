@@ -14,42 +14,20 @@
     <property name="floatType" value="float" dbms="mysql, oracle, mssql"/>
 
     <!--
-        Added the entity Stat.
+        Added the entity CandleStickGranularity.
     -->
-    <changeSet id="20171123153807-1" author="jhipster">
-        <createTable tableName="stat">
+    <changeSet id="20171127132927-1" author="jhipster">
+        <createTable tableName="candle_stick_granularity">
             <column name="id" type="bigint" autoIncrement="${autoIncrement}">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
-            <column name="last_updated" type="timestamp">
+            <column name="name" type="varchar(255)">
                 <constraints nullable="true" />
-            </column>
-
-            <column name="number_of_candles" type="integer">
-                <constraints nullable="true" />
-            </column>
-
-            <column name="first" type="timestamp">
-                <constraints nullable="true" />
-            </column>
-
-            <column name="last" type="timestamp">
-                <constraints nullable="true" />
-            </column>
-
-            <column name="instrument_id" type="bigint">
-                <constraints nullable="false" />
-            </column>
-            <column name="granularity_id" type="bigint">
-                <constraints unique="false" nullable="false" />
             </column>
 
             <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here, do not remove-->
         </createTable>
-        <dropDefaultValue tableName="stat" columnName="last_updated" columnDataType="datetime"/>
-        <dropDefaultValue tableName="stat" columnName="first" columnDataType="datetime"/>
-        <dropDefaultValue tableName="stat" columnName="last" columnDataType="datetime"/>
-
+        
     </changeSet>
     <!-- jhipster-needle-liquibase-add-changeset - JHipster will add changesets here, do not remove-->
 </databaseChangeLog>

@@ -14,5 +14,11 @@
                                  referencedColumnNames="id"
                                  referencedTableName="instrument"/>
 
+        <addForeignKeyConstraint baseColumnNames="granularity_id"
+                                 baseTableName="stat"
+                                 constraintName="fk_stat_granularity_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="candle_stick_granularity"/>
+
     </changeSet>
 </databaseChangeLog>

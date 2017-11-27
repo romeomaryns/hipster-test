@@ -12,6 +12,7 @@
     <include file="config/liquibase/changelog/20171111123132_added_entity_CandleStick.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20171111123133_added_entity_CandleStickData.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20171123153807_added_entity_Stat.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20171127132927_added_entity_CandleStickGranularity.xml" relativeToChangelogFile="false"/>
     <!-- jhipster-needle-liquibase-add-changelog - JHipster will add liquibase changelogs here -->
     <include file="config/liquibase/changelog/20171109151023_added_entity_constraints_Position.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20171109151022_added_entity_constraints_OandaAccount.xml" relativeToChangelogFile="false"/>

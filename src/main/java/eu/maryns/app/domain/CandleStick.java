@@ -8,8 +8,6 @@ import java.io.Serializable;
 import java.time.Instant;
 import java.util.Objects;
 
-import eu.maryns.app.domain.enumeration.CandleStickGranularity;
-
 /**
  * A CandleStick.
  */
@@ -34,13 +32,13 @@ public class CandleStick implements Serializable {
     @Column(name = "jhi_complete")
     private Boolean complete;
 
-    @Enumerated(EnumType.STRING)
-    @Column(name = "granularity")
-    private CandleStickGranularity granularity;
-
     @OneToOne
     @JoinColumn(unique = true)
     private CandleStickData mid;
+
+    @OneToOne
+    @JoinColumn(unique = true)
+    private CandleStickGranularity granularity;
 
     @ManyToOne
     private Instrument instrument;
@@ -93,19 +91,6 @@ public class CandleStick implements Serializable {
         this.complete = complete;
     }
 
-    public CandleStickGranularity getGranularity() {
-        return granularity;
-    }
-
-    public CandleStick granularity(CandleStickGranularity granularity) {
-        this.granularity = granularity;
-        return this;
-    }
-
-    public void setGranularity(CandleStickGranularity granularity) {
-        this.granularity = granularity;
-    }
-
     public CandleStickData getMid() {
         return mid;
     }
@@ -117,6 +102,19 @@ public class CandleStick implements Serializable {
 
     public void setMid(CandleStickData candleStickData) {
         this.mid = candleStickData;
+    }
+
+    public CandleStickGranularity getGranularity() {
+        return granularity;
+    }
+
+    public CandleStick granularity(CandleStickGranularity candleStickGranularity) {
+        this.granularity = candleStickGranularity;
+        return this;
+    }
+
+    public void setGranularity(CandleStickGranularity candleStickGranularity) {
+        this.granularity = candleStickGranularity;
     }
 
     public Instrument getInstrument() {
@@ -160,7 +158,6 @@ public class CandleStick implements Serializable {
             ", time='" + getTime() + "'" +
             ", volume='" + getVolume() + "'" +
             ", complete='" + isComplete() + "'" +
-            ", granularity='" + getGranularity() + "'" +
             "}";
     }
 }

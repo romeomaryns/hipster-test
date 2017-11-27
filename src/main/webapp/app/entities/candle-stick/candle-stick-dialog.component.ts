@@ -10,6 +10,7 @@ import { CandleStick } from './candle-stick.model';
 import { CandleStickPopupService } from './candle-stick-popup.service';
 import { CandleStickService } from './candle-stick.service';
 import { CandleStickData, CandleStickDataService } from '../candle-stick-data';
+import { CandleStickGranularity, CandleStickGranularityService } from '../candle-stick-granularity';
 import { Instrument, InstrumentService } from '../instrument';
 import { ResponseWrapper } from '../../shared';
 
@@ -24,6 +25,8 @@ export class CandleStickDialogComponent implements OnInit {
 
     mids: CandleStickData[];
 
+    granularities: CandleStickGranularity[];
+
     instruments: Instrument[];
 
     constructor(
@@ -31,6 +34,7 @@ export class CandleStickDialogComponent implements OnInit {
         private jhiAlertService: JhiAlertService,
         private candleStickService: CandleStickService,
         private candleStickDataService: CandleStickDataService,
+        private candleStickGranularityService: CandleStickGranularityService,
         private instrumentService: InstrumentService,
         private eventManager: JhiEventManager
     ) {
@@ -48,6 +52,19 @@ export class CandleStickDialogComponent implements OnInit {
                         .find(this.candleStick.mid.id)
                         .subscribe((subRes: CandleStickData) => {
                             this.mids = [subRes].concat(res.json);
+                        }, (subRes: ResponseWrapper) => this.onError(subRes.json));
+                }
+            }, (res: ResponseWrapper) => this.onError(res.json));
+        this.candleStickGranularityService
+            .query({filter: 'candlestick-is-null'})
+            .subscribe((res: ResponseWrapper) => {
+                if (!this.candleStick.granularity || !this.candleStick.granularity.id) {
+                    this.granularities = res.json;
+                } else {
+                    this.candleStickGranularityService
+                        .find(this.candleStick.granularity.id)
+                        .subscribe((subRes: CandleStickGranularity) => {
+                            this.granularities = [subRes].concat(res.json);
                         }, (subRes: ResponseWrapper) => this.onError(subRes.json));
                 }
             }, (res: ResponseWrapper) => this.onError(res.json));
@@ -90,6 +107,10 @@ export class CandleStickDialogComponent implements OnInit {
     }
 
     trackCandleStickDataById(index: number, item: CandleStickData) {
+        return item.id;
+    }
+
+    trackCandleStickGranularityById(index: number, item: CandleStickGranularity) {
         return item.id;
     }
 

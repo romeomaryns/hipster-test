@@ -31,7 +31,6 @@ import static org.hamcrest.Matchers.hasItem;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-import eu.maryns.app.domain.enumeration.CandleStickGranularity;
 /**
  * Test class for the CandleStickResource REST controller.
  *
@@ -49,9 +48,6 @@ public class CandleStickResourceIntTest {
 
     private static final Boolean DEFAULT_COMPLETE = false;
     private static final Boolean UPDATED_COMPLETE = true;
-
-    private static final CandleStickGranularity DEFAULT_GRANULARITY = CandleStickGranularity.S5;
-    private static final CandleStickGranularity UPDATED_GRANULARITY = CandleStickGranularity.S10;
 
     @Autowired
     private CandleStickRepository candleStickRepository;
@@ -93,8 +89,7 @@ public class CandleStickResourceIntTest {
         CandleStick candleStick = new CandleStick()
             .time(DEFAULT_TIME)
             .volume(DEFAULT_VOLUME)
-            .complete(DEFAULT_COMPLETE)
-            .granularity(DEFAULT_GRANULARITY);
+            .complete(DEFAULT_COMPLETE);
         return candleStick;
     }
 
@@ -121,7 +116,6 @@ public class CandleStickResourceIntTest {
         assertThat(testCandleStick.getTime()).isEqualTo(DEFAULT_TIME);
         assertThat(testCandleStick.getVolume()).isEqualTo(DEFAULT_VOLUME);
         assertThat(testCandleStick.isComplete()).isEqualTo(DEFAULT_COMPLETE);
-        assertThat(testCandleStick.getGranularity()).isEqualTo(DEFAULT_GRANULARITY);
     }
 
     @Test
@@ -156,8 +150,7 @@ public class CandleStickResourceIntTest {
             .andExpect(jsonPath("$.[*].id").value(hasItem(candleStick.getId().intValue())))
             .andExpect(jsonPath("$.[*].time").value(hasItem(DEFAULT_TIME.toString())))
             .andExpect(jsonPath("$.[*].volume").value(hasItem(DEFAULT_VOLUME)))
-            .andExpect(jsonPath("$.[*].complete").value(hasItem(DEFAULT_COMPLETE.booleanValue())))
-            .andExpect(jsonPath("$.[*].granularity").value(hasItem(DEFAULT_GRANULARITY.toString())));
+            .andExpect(jsonPath("$.[*].complete").value(hasItem(DEFAULT_COMPLETE.booleanValue())));
     }
 
     @Test
@@ -173,8 +166,7 @@ public class CandleStickResourceIntTest {
             .andExpect(jsonPath("$.id").value(candleStick.getId().intValue()))
             .andExpect(jsonPath("$.time").value(DEFAULT_TIME.toString()))
             .andExpect(jsonPath("$.volume").value(DEFAULT_VOLUME))
-            .andExpect(jsonPath("$.complete").value(DEFAULT_COMPLETE.booleanValue()))
-            .andExpect(jsonPath("$.granularity").value(DEFAULT_GRANULARITY.toString()));
+            .andExpect(jsonPath("$.complete").value(DEFAULT_COMPLETE.booleanValue()));
     }
 
     @Test
@@ -197,8 +189,7 @@ public class CandleStickResourceIntTest {
         updatedCandleStick
             .time(UPDATED_TIME)
             .volume(UPDATED_VOLUME)
-            .complete(UPDATED_COMPLETE)
-            .granularity(UPDATED_GRANULARITY);
+            .complete(UPDATED_COMPLETE);
 
         restCandleStickMockMvc.perform(put("/api/candle-sticks")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
@@ -212,7 +203,6 @@ public class CandleStickResourceIntTest {
         assertThat(testCandleStick.getTime()).isEqualTo(UPDATED_TIME);
         assertThat(testCandleStick.getVolume()).isEqualTo(UPDATED_VOLUME);
         assertThat(testCandleStick.isComplete()).isEqualTo(UPDATED_COMPLETE);
-        assertThat(testCandleStick.getGranularity()).isEqualTo(UPDATED_GRANULARITY);
     }
 
     @Test

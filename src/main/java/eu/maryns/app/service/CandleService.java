@@ -6,6 +6,7 @@ import com.oanda.v20.primitives.InstrumentName;
 import eu.maryns.app.domain.CandleStick;
 import eu.maryns.app.domain.CandleStickData;
 import eu.maryns.app.domain.enumeration.CandleStickGranularity;
+import eu.maryns.app.repository.CandleStickGranularityRepository;
 import eu.maryns.app.repository.CandleStickRepository;
 import eu.maryns.app.repository.InstrumentRepository;
 import org.slf4j.Logger;
@@ -26,6 +27,9 @@ public class CandleService implements ICandleService{
     private CandleStickRepository candleStickRepository;
 
     @Autowired
+    private CandleStickGranularityRepository candleStickGranularityRepository;
+
+    @Autowired
     private InstrumentRepository instrumentRepository;
 
     @Autowired
@@ -35,7 +39,7 @@ public class CandleService implements ICandleService{
     public CandleStick convertCandleStick(Candlestick candle, CandlestickGranularity granularity, InstrumentName instrument)
     {
         CandleStick candleStick = new CandleStick();
-        candleStick.setGranularity(CandleStickGranularity.valueOf(granularity.name()));
+        candleStick.setGranularity(candleStickGranularityRepository.findByName(granularity.name()));
         candleStick.setInstrument(instrumentRepository.findByNameIgnoreCase(instrument.toString()));
         candleStick.setComplete(candle.getComplete());
         candleStick.setVolume(candle.getVolume());

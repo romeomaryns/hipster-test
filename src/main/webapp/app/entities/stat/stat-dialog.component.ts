@@ -10,6 +10,7 @@ import { Stat } from './stat.model';
 import { StatPopupService } from './stat-popup.service';
 import { StatService } from './stat.service';
 import { Instrument, InstrumentService } from '../instrument';
+import { CandleStickGranularity, CandleStickGranularityService } from '../candle-stick-granularity';
 import { ResponseWrapper } from '../../shared';
 
 @Component({
@@ -23,11 +24,14 @@ export class StatDialogComponent implements OnInit {
 
     instruments: Instrument[];
 
+    granularities: CandleStickGranularity[];
+
     constructor(
         public activeModal: NgbActiveModal,
         private jhiAlertService: JhiAlertService,
         private statService: StatService,
         private instrumentService: InstrumentService,
+        private candleStickGranularityService: CandleStickGranularityService,
         private eventManager: JhiEventManager
     ) {
     }
@@ -36,6 +40,19 @@ export class StatDialogComponent implements OnInit {
         this.isSaving = false;
         this.instrumentService.query()
             .subscribe((res: ResponseWrapper) => { this.instruments = res.json; }, (res: ResponseWrapper) => this.onError(res.json));
+        this.candleStickGranularityService
+            .query({filter: 'stat-is-null'})
+            .subscribe((res: ResponseWrapper) => {
+                if (!this.stat.granularity || !this.stat.granularity.id) {
+                    this.granularities = res.json;
+                } else {
+                    this.candleStickGranularityService
+                        .find(this.stat.granularity.id)
+                        .subscribe((subRes: CandleStickGranularity) => {
+                            this.granularities = [subRes].concat(res.json);
+                        }, (subRes: ResponseWrapper) => this.onError(subRes.json));
+                }
+            }, (res: ResponseWrapper) => this.onError(res.json));
     }
 
     clear() {
@@ -73,6 +90,10 @@ export class StatDialogComponent implements OnInit {
     }
 
     trackInstrumentById(index: number, item: Instrument) {
+        return item.id;
+    }
+
+    trackCandleStickGranularityById(index: number, item: CandleStickGranularity) {
         return item.id;
     }
 }
