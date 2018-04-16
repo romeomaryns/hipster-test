@@ -15,10 +15,7 @@ import eu.maryns.app.service.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,6 +33,9 @@ public class ChartResource {
     @Autowired
     private ICandleService candleService;
 
+    @Autowired
+    private IGranularityService granularityService;
+
     Context ctx = new Context(Config.URL, Config.TOKEN);
     AccountID accountId = Config.ACCOUNTID;
 
@@ -45,10 +45,10 @@ public class ChartResource {
      * GET generateChartingData
      */
     @GetMapping("/generate")
-    public List<CandleStick> generateCharts(@PathVariable String from,
-                                            @PathVariable String to,
-                                            @PathVariable String instrument,
-                                            @PathVariable String granularity) {
+    public List<CandleStick> generateCharts(@RequestParam(name = "from") String from,
+                                            @RequestParam(name ="to") String to,
+                                            @RequestParam(name = "instrument") String instrument,
+                                            @RequestParam(name = "granularity") String granularity) {
         log.info("From: " + from + "\tTo: " + to + "\tInstrument: " +instrument + "\tGranularity: " + granularity);
         List<CandleStick> candleSticks = new ArrayList<CandleStick>();
         try {
@@ -69,6 +69,6 @@ public class ChartResource {
         } catch (ExecuteException e) {
             e.printStackTrace();
         }
-        return candleSticks;
+        return candleService.findDetail(from,to,instrument,granularityService.findByName(granularity));
     }
 }

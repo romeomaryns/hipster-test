@@ -93,95 +93,69 @@
     </div>
 
     <div class="row">
-            <ngb-accordion [closeOthers]="true" activeIds="static-1">
-                    <ngb-panel id="static-1">
-                    <ng-template ngbPanelTitle>
-                            <span>&#9733; <b>config</b> &#9733;</span>
-                    </ng-template>
-                      <ng-template ngbPanelContent>
-                          <div class="row">
-                            <form class="form-inline">
-                                    <div class="form-group">
-                                      <div class="input-group">
-                                        <input class="form-control" placeholder="yyyy-mm-dd"
-                                               name="dp" [(ngModel)]="from" ngbDatepicker #d="ngbDatepicker">
-                                        <button class="input-group-addon" (click)="d.toggle()" type="button">
-                                                <span class="fa fa-calendar"></span>
-                                        </button>
-                                      </div>
-                                    </div>
-                                  </form>
-                                <pre>From: {{ from | json }}</pre>
-                                <form class="form-inline">
-                                        <div class="form-group">
-                                          <div class="input-group">
-                                            <input class="form-control" placeholder="yyyy-mm-dd"
-                                                   name="dp2" [(ngModel)]="to" ngbDatepicker #d2="ngbDatepicker">
-                                            <button class="input-group-addon" (click)="d2.toggle()" type="button">
-                                                    <span class="fa fa-calendar"></span>
-                                            </button>
-                                          </div>
-                                        </div>
-                                      </form>
-                                        <pre>To: {{ to | json }}</pre>
-                                <div class="form-group">
-                                        <label class="form-control-label" for="field_instrument">Instrument</label>
-                                        <select class="form-control" id="field_instrument" name="instrument" [(ngModel)]="selectedInstrument" >
-                                            <option [ngValue]="null"></option>
-                                            <option [ngValue]="instrumentOption.id === selectedInstrument?.id ? selectedInstrument : instrumentOption" *ngFor="let instrumentOption of instruments; trackBy: trackInstrumentById">{{instrumentOption.displayName}}</option>
-                                        </select>
-                                    </div>
-                                    <div class="form-group">
-                                            <label class="form-control-label" for="field_granularity">Granularity</label>
-                                            <select class="form-control" id="field_granularity" name="granularity" [(ngModel)]="selectedGranularity" >
-                                                <option [ngValue]="null"></option>
-                                                <option [ngValue]="granularityOption.id === selectedGranularity?.id ? selectedGranularity : granularityOption" *ngFor="let granularityOption of granularities; trackBy: trackGranularityById">{{granularityOption.name}}</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                      </ng-template>
-                    </ngb-panel>
-                    <ngb-panel id="static-2">
-                      <ng-template ngbPanelTitle>
-                        <span>&#9733; <b>Data</b> &#9733;</span>
-                      </ng-template>
-                      <ng-template ngbPanelContent>
-                            <button class="btn btn-primary float-right" (click)="generateChart()">
-                                    <span class="fa fa-gear"></span> <span>Generate</span>
-                                </button>
-                            <div class="table-responsive" *ngIf="!updatingMetrics">
-                                    <table class="table table-striped">
-                                        <thead>
-                                        <tr>
-                                            <th>Time</th>
-                                            <th>Value</th>
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr *ngFor="let entry of chartEntries">
-                                                <td>{{entry.time}}</td>
-                                                <td>
-                                                    {{entry.value}}
-                                                </td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                      </ng-template>
-                    </ngb-panel>
-                    <ngb-panel id="static-3">
-                    <ng-template ngbPanelTitle>
-                            <span>&#9733; <b>Charting</b> &#9733;</span>
-                    </ng-template>
-                      <ng-template ngbPanelContent>
-                        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia
-                        aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor,
-                        sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica,
-                        craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings
-                        occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus
-                        labore sustainable VHS.
-                      </ng-template>
-                    </ngb-panel>
-                  </ngb-accordion>
+        <form class="form-inline">
+                <div class="form-group">
+                    <div class="input-group">
+                    <input class="form-control" placeholder="yyyy-mm-dd"
+                            name="dp" [(ngModel)]="from" ngbDatepicker #d="ngbDatepicker">
+                    <button class="input-group-addon" (click)="d.toggle()" type="button">
+                            <span class="fa fa-calendar"></span>
+                    </button>
+                    </div>
+                </div>
+                </form>
+            <pre>From: {{ from | json }}</pre>
+            <form class="form-inline">
+                    <div class="form-group">
+                        <div class="input-group">
+                        <input class="form-control" placeholder="yyyy-mm-dd"
+                                name="dp2" [(ngModel)]="to" ngbDatepicker #d2="ngbDatepicker">
+                        <button class="input-group-addon" (click)="d2.toggle()" type="button">
+                                <span class="fa fa-calendar"></span>
+                        </button>
+                        </div>
+                    </div>
+                    </form>
+                    <pre>To: {{ to | json }}</pre>
+            <div class="form-group">
+                    <label class="form-control-label" for="field_instrument">Instrument</label>
+                    <select class="form-control" id="field_instrument" name="instrument" [(ngModel)]="selectedInstrument" >
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="instrumentOption.id === selectedInstrument?.id ? selectedInstrument : instrumentOption" *ngFor="let instrumentOption of filteredInstruments; trackBy: trackInstrumentById">{{instrumentOption.displayName}}</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                        <label class="form-control-label" for="field_granularity">Granularity</label>
+                        <select class="form-control" id="field_granularity" name="granularity" [(ngModel)]="selectedGranularity" >
+                            <option [ngValue]="null"></option>
+                            <option [ngValue]="granularityOption.id === selectedGranularity?.id ? selectedGranularity : granularityOption" *ngFor="let granularityOption of filteredGranularities; trackBy: trackGranularityById">{{granularityOption.name}}</option>
+                        </select>
+                    </div>
+                <div>
+                    <button class="btn btn-primary float-right" (click)="generateChart()">
+                            <span class="fa fa-gear"></span> <span>Generate</span>
+                        </button>
+                </div>
+        </div>
+        <div class="row">
+            <div class="table-responsive" *ngIf="!updatingMetrics">
+                    <table class="table table-striped">
+                        <thead>
+                        <tr>
+                            <th>Time</th>
+                            <th>Value</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let entry of chartEntries">
+                                <td>{{entry.time}}</td>
+                                <td>
+                                    {{entry.value}}
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+        </div>
     </div>
 </div>

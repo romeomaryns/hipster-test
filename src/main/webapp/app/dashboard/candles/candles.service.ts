@@ -14,6 +14,8 @@ import { CandleStickGranularity } from '../../entities/candle-stick-granularity/
 @Injectable()
 export class CandlesService {
 
+    private resourceUrl =  SERVER_API_URL + 'api/chart/';
+
     constructor(
         private http: Http) {
                 }
@@ -25,13 +27,19 @@ export class CandlesService {
     threadDump(): Observable<any> {
         return this.http.get('management/dump').map((res: Response) => res.json());
     }
+    pad(n: any): string {
+        return (n < 10) ? ('0' + n) : n;
+    }
 
     fetchChartEntries(from: any, to: any , instrument: Instrument, granularity: CandleStickGranularity): Array<StockEntry> {
-        console.log('fetchChartEntries : ' + from.year + '-' + from.month + '-' + from.day);
-        console.log(to.year + '-' + to.month + '-' + to.day + ' , ' + instrument.name + ' , ' + granularity.name);
-        const fromString: string = from.year + '-' + from.month + '-' + from.day + 'T00:00:00Z';
-        const toString: string = to.year + '-' + to.month + '-' + to.day + 'T23:59:59Z'
-        this.http.get(SERVER_API_URL + `api/chart/generate${fromString}&${toString}&${instrument.name}&${granularity.name}`).map((res: Response) => {
+        console.log('fetchChartEntries from : ' + this.pad(from.year) + '-' + this.pad(from.month) + '-' + this.pad(from.day) );
+        console.log('To : ' + to.year + '-' + to.month + '-' + to.day + ' , ' + instrument.name + ' , ' + granularity.name);
+        const fromString: string = from.year + '-' + this.pad(from.month) + '-' + this.pad(from.day) + 'T00:00:00Z';
+        const toString: string = to.year + '-' + this.pad(to.month) + '-' + this.pad(to.day) + 'T23:59:59Z'
+        const url = this.resourceUrl + `generate?${fromString}&${toString}&${instrument.name}&${granularity.name}`;
+        console.log('url : ' + url);
+        console.log(this.http.get(url).map((res: Response) => res.json()));
+        this.http.get(url).map((res: Response) => {
             const jsonResponse = res.json();
             console.log(res.json());
             const candles = <Array<CandleStickData>> this.convertItemFromServer(jsonResponse);

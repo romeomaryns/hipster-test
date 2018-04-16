@@ -37,6 +37,8 @@ export class CandlesComponent implements OnInit {
     selectedInstrument: Instrument;
     selectedGranularity: CandleStickGranularity;
     instruments: any = {};
+    filteredInstruments: Instrument[];
+    filteredGranularities: CandleStickGranularity[];
 
     chartEntries: any = {};
 
@@ -63,6 +65,7 @@ export class CandlesComponent implements OnInit {
 
     generateChart() {
         this.chartEntries = this.candlesService.fetchChartEntries(this.from, this.to, this.selectedInstrument, this.selectedGranularity);
+        console.log(this.chartEntries);
     }
 
     refresh() {
@@ -103,6 +106,8 @@ export class CandlesComponent implements OnInit {
         console.log(stats.size);
         const array: StatEntry[] = new Array();
         const keys: string[] = new Array();
+        this.filteredInstruments = new Array();
+        this.filteredGranularities = new Array();
         const statsArray: Array<Stat>[] = new Array();
         const tempArr = stats;
         // console.log((<Map<String, Array<Stat>>>tempArr));
@@ -125,12 +130,18 @@ export class CandlesComponent implements OnInit {
                             console.log(count);
                             instrument = (<Instrument>stat.instrument).displayName;
                             console.log(instrument);
+                            if (!(this.filteredInstruments.lastIndexOf(stat.instrument) > 0)) {
+                                this.filteredInstruments.push(stat.instrument);
+                            }
                             code += (<CandleStickGranularity>stat.granularity).name + ', ';
                             console.log(code);
-                            if (null != first && stat.first < first.getDate()) {
+                            if (!(this.filteredGranularities.lastIndexOf(stat.granularity) > 0)) {
+                                this.filteredGranularities.push(stat.granularity);
+                            }
+                            if (null != first && stat.first > first.getDate()) {
                                 first = stat.first;
                             }
-                            if (null != last && stat.last > last.getDate()) {
+                            if (null != last && stat.last < last.getDate()) {
                                 last = stat.last;
                             }
                             timespan = first + ' - ' + last;
